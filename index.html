@@ -49,12 +49,15 @@
         </div>
     </div>
 
-    <!--Dropdown Bar-->
-    <div class="row">
-        <div class="col s12">
-            INSERT DROPDOWN BAR HERE
-        </div>
-    </div>
+        <!-- Dropdown Trigger -->
+        <a class='dropdown-trigger btn' href='#' data-target='emotion-dropdown'>Choose an emotion!</a>
+    
+        <!-- Dropdown Structure -->
+        <ul id='emotion-dropdown' class='dropdown-content'>
+            <li id="emotion-choice" value ="happy">Happy</li>
+            <li id="emotion-choice" value="sad">Sad</li>
+            <li id="emotion-choice" value="angry">Angry</li>
+        </ul>
     <!--Restaurant Cards-->
     <div class="row">
         <div class="col s12">
@@ -94,10 +97,6 @@
         </div>
     </footer>
 
-
-
-
-
     <!--JQUERY-->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -106,6 +105,7 @@
     <!--External JS-->
     <script src="assets/js/landing-page-script.js"></script>
     <script src="assets/js/api-script.js"></script>
+    <script src="assets/js/mood-to-food.js"></script>
 </body>
 
 </html>
