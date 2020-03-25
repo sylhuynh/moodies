@@ -130,28 +130,26 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
         },
         type: "GET"
     })
-        .then(function (searchResponse) {
+        .then(function (searchResponse){
 
-            var restaurantsArray = searchResponse.restaurants;
+            var searchResponse = searchResponse;
 
-            console.log(searchResponse);
-            var randomRestaurantChoice = Math.floor(Math.random() * restaurantsArray.length);
-            if (restaurantsArray[randomRestaurantChoice].restaurant.featured_image === "") {
+            cardCreate(searchResponse);
 
-                var cardImage = $("<img>").attr("src", "assets/images/placeholder-200x200.png").width(200);
+            $("#please-work-button").on("click", function(){
+
+                cardCreate(searchResponse);
                 
-            } 
-            else {
 
-                var cardImage = $("<img>").attr("src", restaurantsArray[randomRestaurantChoice].restaurant.featured_image).width(200);
+            });
 
-            }
-            var cardImageDiv = $("<div>").attr("class", "card-image").append(cardImage);
-            var cardTitle = $("<span>").attr("class", "card-title").text(restaurantsArray[randomRestaurantChoice].restaurant.name);
-            var cardInfo = $("<p>").text(restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " , " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
-            var reccomendationReason = $("<p>").text("Moodies recommends " + restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " when you are feeling " + choiceReasoning[0] + "!");
-            var cardContent = $("<div>").attr("class", "card-content").append(cardInfo, reccomendationReason)
-            cardContainer.append(cardImage, cardTitle, cardImageDiv, cardContent);
+            
+            $("#accept-button").on("click", function(){
+
+                alert("Flip Card Content");
+
+            });
+
         });
 
 };
@@ -170,5 +168,36 @@ function openWeatherResources(city) {
 
 };
 
+
+
+function cardCreate (searchResponse) {
+    
+    cardContainer.empty();
+
+    var restaurantsArray = searchResponse.restaurants;
+    var randomRestaurantChoice = Math.floor(Math.random() * restaurantsArray.length);
+    
+    if (restaurantsArray[randomRestaurantChoice].restaurant.featured_image === "") {
+
+        var cardImage = $("<img>").attr("src", "assets/images/placeholder-200x200.png").width(200);
+        
+    } 
+    else {
+
+        var cardImage = $("<img>").attr("src", restaurantsArray[randomRestaurantChoice].restaurant.featured_image).width(200);
+
+    }
+    var cardImageDiv = $("<div>").attr("class", "card-image").append(cardImage);
+    var cardTitle = $("<span>").attr("class", "card-title").text(restaurantsArray[randomRestaurantChoice].restaurant.name);
+    var cardInfo = $("<p>").text(restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " , " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
+    var reccomendationReason = $("<p>").text("Moodies recommends " + restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " when you are feeling " + choiceReasoning[0] + "!");
+    var cardContent = $("<div>").attr("class", "card-content").append(cardInfo, reccomendationReason)
+    cardContainer.append(cardImage, cardTitle, cardImageDiv, cardContent);
+
+};
+
 // Run Functions
 getLocation();
+
+
+
