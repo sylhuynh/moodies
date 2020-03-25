@@ -27,58 +27,72 @@ function setLocation(location) {
     long = location.coords.longitude;
     console.log("lat " + lat);
     console.log("lon " + long);
-    // zomatoGeoResources(lat, long);
 
 };
 
-getLocation();
 
 $(emotionChoice).on("click", function (event) {
-    choiceReasoning = [];
-    var emotionChosen = this.innerHTML;
-    if (emotionChosen === "Sad") {
-        alert("Sad");
-        var randomSadReasonChoice = sadReasonings[Math.floor(Math.random() * sadReasonings.length)];
-        choiceReasoning.push(randomSadReasonChoice);
-        findSadReccomendations();
+
+    if (lat === "" && long === "") {
+
+        alert("please accept");
+
     }
-    else if (emotionChosen === "Angry") {
-        alert("Angry");
-        var randomAngryReasonChoice = angryReasonings[Math.floor(Math.random() * angryReasonings.length)];
-        choiceReasoning.push(randomAngryReasonChoice);
-        findAngryReccomendations();
+
+    else {
+
+        choiceReasoning = [];
+        var emotionChosen = this.innerHTML;
+        if (emotionChosen === "Sad") {
+            alert("Sad");
+            var randomSadReasonChoice = sadReasonings[Math.floor(Math.random() * sadReasonings.length)];
+            choiceReasoning.push(randomSadReasonChoice);
+            findSadReccomendations();
+        }
+
+        else if (emotionChosen === "Angry") {
+            alert("Angry");
+            var randomAngryReasonChoice = angryReasonings[Math.floor(Math.random() * angryReasonings.length)];
+            choiceReasoning.push(randomAngryReasonChoice);
+            findAngryReccomendations();
+        }
+
+        else if (emotionChosen === "Happy") {
+            alert("Happy");
+            var randomHappyReasonChoice = happyReasonings[Math.floor(Math.random() * happyReasonings.length)];
+            choiceReasoning.push(randomHappyReasonChoice);
+            findHappyReccomendations();
+        }
+
+
+        function findSadReccomendations() {
+            //grab fast casual, taquerias, wine bars
+            cuisineBasedOnEmotion = "fast casual, taquerias, wine bars";
+
+            zomatoGeoResources(lat, long);
+        };
+
+
+        function findAngryReccomendations() {
+            //grab fast food, pizzerias, food truck
+            cuisineBasedOnEmotion = "fast food, pizzerias, food truck";
+            zomatoGeoResources(lat, long);
+        };
+
+
+        function findHappyReccomendations() {
+            //grab cafes, fine dining, bars
+            cuisineBasedOnEmotion = "cafés, fine dining, bars";
+            zomatoGeoResources(lat, long);
+        };
+
     }
-    else if (emotionChosen === "Happy") {
-        alert("Happy");
-        var randomHappyReasonChoice = happyReasonings[Math.floor(Math.random() * happyReasonings.length)];
-        choiceReasoning.push(randomHappyReasonChoice);
-        findHappyReccomendations();
-    }
-    function findSadReccomendations() {
-        //grab fast casual, taquerias, wine bars
-        cuisineBasedOnEmotion = "fast casual, taquerias, wine bars";
-
-        zomatoGeoResources(lat, long);
-
-    };
-
-    function findAngryReccomendations() {
-        //grab fast food, pizzerias, food truck
-        cuisineBasedOnEmotion = "fast food, pizzerias, food truck";
-        zomatoGeoResources(lat, long);
-    };
-
-    function findHappyReccomendations() {
-        //grab cafes, fine dining, bars
-        cuisineBasedOnEmotion = "cafés, fine dining, bars";
-        zomatoGeoResources(lat, long);
-    };
-
-
-
 
 });
+
+
 function zomatoGeoResources(lat, long) {
+
     var searchURL = "https://developers.zomato.com/api/v2.1/geocode?lat=" + lat + "&lon=" + long
     $.ajax({
         url: searchURL,
@@ -102,7 +116,10 @@ function zomatoGeoResources(lat, long) {
             openWeatherResources(cityName);
 
         });
-};
+
+}
+
+
 function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAmount, lat, long) {
 
     $.ajax({
@@ -115,14 +132,27 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
     })
         .then(function (searchResponse) {
 
+            var restaurantsArray = searchResponse.restaurants;
+
             console.log(searchResponse);
-            $(cardContainer).empty();
-            var randomRestaurantChoice = Math.floor(Math.random() * searchResponse.restaurants.length);
-            var cardImage = $("<img>").attr("src", searchResponse.restaurants[randomRestaurantChoice].restaurant.featured_image).width(200);
+$(cardContainer).empty();
+var randomRestaurantChoice = Math.floor(Math.random() * restaurantsArray.length);
+            if (restaurantsArray[randomRestaurantChoice].restaurant.featured_image === "") {
+
+                var cardImage = $("<img>").attr("src", "assets/images/placeholder-200x200.png").width(200);
+
+            }
+            else {
+
+                var cardImage = $("<img>").attr("src", restaurantsArray[randomRestaurantChoice].restaurant.featured_image).width(200);
+
+            }
             var cardImageDiv = $("<div>").attr("class", "card-image card-content").append(cardImage);
-            var cardTitle = $("<h2>").attr("class", "card-title card-content").text(searchResponse.restaurants[randomRestaurantChoice].restaurant.name);
-            var cardInfo = $("<p>").text(searchResponse.restaurants[randomRestaurantChoice].restaurant.cuisines + " , " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
-            var reccomendationReason = $("<p>").text("Moodies recommends " + searchResponse.restaurants[randomRestaurantChoice].restaurant.cuisines + " when you are feeling " + choiceReasoning[0] + "!");
+            var cardTitle = $("<h2>").attr("class", "card-title card-content").text(restaurantsArray[randomRestaurantChoice].restaurant.name);
+            var cardInfo = $("<p>").text(restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " , " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
+            var cuisineTypeString = JSON.stringify(restaurantsArray[randomRestaurantChoice].restaurant.cuisines).toLowerCase();
+            var cuisineType = JSON.parse(cuisineTypeString);
+            var reccomendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasoning[0] + "!");
             var cardContent = $("<div>").attr("class", "card-content").append(cardInfo, reccomendationReason)
             cardContainer.append(cardImageDiv, cardTitle, cardContent);
         });
@@ -142,3 +172,6 @@ function openWeatherResources(city) {
     });
 
 };
+
+// Run Functions
+getLocation();
