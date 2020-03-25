@@ -1,16 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moodies</title>
+
+    <!--Materialize CSS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!--Icon CSS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--Personal CSS-->
     <link rel="stylesheet" href="assets/style/style.css">
+
+
 </head>
+
 <body>
-    <script
-    src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-    crossorigin="anonymous"></script> 
+<!--Navigation Bar-->
+    <!-- Dropdown Structure -->
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#!">Your profile</a></li>
+        <li class="divider"></li>
+        <li><a href="#!">Settings</a></li>
+    </ul>
+    <nav>
+        <div class="nav-wrapper" >
+            <img class="logo-img" src="assets/images/Orange Sun 200px.png" alt="orange with chips sun">
+            <a href="index.html" class="brand-logo black-text text-darken-2" >MOODIES</a>
+            <ul class="right hide-on-med-and-down">
+                <!-- Dropdown Trigger -->
+                <li><a class="dropdown-trigger black-text text-darken-2 center-align" data-target="dropdown1" style="width:150px"><i class="fa fa-bars fa-2x"></i>
+                    </a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+
+    <!--JQUERY-->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!--External JS-->
+    <script src="assets/js/landing-page-script.js"></script>
     <script src="assets/js/api-script.js"></script>
 </body>
+
 </html>
