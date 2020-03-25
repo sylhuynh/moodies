@@ -33,7 +33,7 @@ function zomatoGeoResources(lat, long){
 
             console.log(response);
 
-            var cityName = response.location.title;
+            var cityName = response.location.city_name;
             var cityType = response.location.entity_type;
             var cityID = response.location.entity_id;
             var cuisineBasedOnEmotion = "fastfood";
