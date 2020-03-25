@@ -11,9 +11,45 @@
 }
 
 /* Jumbotron */
-
+#jumbotron-title {
+    font-size: 35px !important;
+    font-weight: bold !important;
+}
 /* Footer */
 .page-footer {
     background-color: #FAEBD7;
 }   
+@media (max-width:600px) {
+    .card-image {
+        width:100%;
+        height:40%;
+        margin:0 auto;
+    }
+        #hero-container {
+            margin: 0 auto;
+            width: 100%;
+            height: 40%;
+        }
+    
+}
+
+
+
+
+@media (min-width:600px){
+    .card-image {
+    
+    height: auto;
+    
+}
+    #hero-container {
+        margin: 0 auto;
+        width: 60%;
+        height: auto;
+    }
+
+
+}
+
+
       
