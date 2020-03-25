@@ -38,19 +38,19 @@ $(emotionChoice).on("click", function (event) {
     var emotionChosen = this.innerHTML;
     if (emotionChosen === "Sad") {
         alert("Sad");
-        var randomSadReasonChoice = sadReasonings[Math.floor(Math.random() * 10)];
+        var randomSadReasonChoice = sadReasonings[Math.floor(Math.random() * sadReasonings.length)];
         choiceReasoning.push(randomSadReasonChoice);
         findSadReccomendations();
     }
     else if (emotionChosen === "Angry") {
         alert("Angry");
-        var randomAngryReasonChoice = angryReasonings[Math.floor(Math.random() * 10)];
+        var randomAngryReasonChoice = angryReasonings[Math.floor(Math.random() * angryReasonings.length)];
         choiceReasoning.push(randomAngryReasonChoice);
         findAngryReccomendations();
     }
     else if (emotionChosen === "Happy") {
         alert("Happy");
-        var randomHappyReasonChoice = happyReasonings[Math.floor(Math.random() * 10)];
+        var randomHappyReasonChoice = happyReasonings[Math.floor(Math.random() * happyReasonings.length)];
         choiceReasoning.push(randomHappyReasonChoice);
         findHappyReccomendations();
     }
@@ -116,15 +116,15 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
         .then(function (searchResponse) {
 
             console.log(searchResponse);
+            $(cardContainer).empty();
             var randomRestaurantChoice = Math.floor(Math.random() * searchResponse.restaurants.length);
             var cardImage = $("<img>").attr("src", searchResponse.restaurants[randomRestaurantChoice].restaurant.featured_image).width(200);
-            var cardImageDiv = $("<div>").attr("class", "card-image").append(cardImage);
-            var cardTitle = $("<span>").attr("class", "card-title").text(searchResponse.restaurants[randomRestaurantChoice].restaurant.name);
+            var cardImageDiv = $("<div>").attr("class", "card-image card-content").append(cardImage);
+            var cardTitle = $("<h2>").attr("class", "card-title card-content").text(searchResponse.restaurants[randomRestaurantChoice].restaurant.name);
             var cardInfo = $("<p>").text(searchResponse.restaurants[randomRestaurantChoice].restaurant.cuisines + " , " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
-            var cuisineType = $(searchResponse.restaurants[randomRestaurantChoice].restaurant.cuisines).val().toLowerCase();
-            var reccomendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasoning[0] + "!");
+            var reccomendationReason = $("<p>").text("Moodies recommends " + searchResponse.restaurants[randomRestaurantChoice].restaurant.cuisines + " when you are feeling " + choiceReasoning[0] + "!");
             var cardContent = $("<div>").attr("class", "card-content").append(cardInfo, reccomendationReason)
-            cardContainer.append(cardImage, cardTitle, cardImageDiv, cardContent);
+            cardContainer.append(cardImageDiv, cardTitle, cardContent);
         });
 
 };
