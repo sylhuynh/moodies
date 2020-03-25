@@ -121,7 +121,8 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
             var cardImageDiv = $("<div>").attr("class", "card-image").append(cardImage);
             var cardTitle = $("<span>").attr("class", "card-title").text(searchResponse.restaurants[randomRestaurantChoice].restaurant.name);
             var cardInfo = $("<p>").text(searchResponse.restaurants[randomRestaurantChoice].restaurant.cuisines + " , " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
-            var reccomendationReason = $("<p>").text("Moodies recommends " + searchResponse.restaurants[randomRestaurantChoice].restaurant.cuisines + " when you are feeling " + choiceReasoning[0] + "!");
+            var cuisineType = $(searchResponse.restaurants[randomRestaurantChoice].restaurant.cuisines).val().toLowerCase();
+            var reccomendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasoning[0] + "!");
             var cardContent = $("<div>").attr("class", "card-content").append(cardInfo, reccomendationReason)
             cardContainer.append(cardImage, cardTitle, cardImageDiv, cardContent);
         });
