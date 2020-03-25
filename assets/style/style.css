@@ -1,6 +1,7 @@
 /* Navigation Bar */
 .nav-wrapper {
-    background-color: #FAEBD7;}
+    background-color: #FAEBD7;
+}
 
 .logo-img {
     width: 50px;
@@ -9,3 +10,10 @@
     padding-bottom: 5px;
 }
 
+/* Jumbotron */
+
+/* Footer */
+.page-footer {
+    background-color: #FAEBD7;
+}   
+      
