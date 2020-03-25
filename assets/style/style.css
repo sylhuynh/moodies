@@ -18,6 +18,12 @@
     font-weight: bold !important;
     margin-bottom: 400px;
 }
+/*Mood Dropdown*/
+#mood-dropdown {
+    width: 60% !important;
+    margin: 0 auto;
+}
+
 /* Footer */
 .page-footer {
     background-color: #FAEBD7;
