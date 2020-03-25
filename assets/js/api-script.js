@@ -136,7 +136,7 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
 
             cardCreate(searchResponse);
 
-            $("#please-work-button").on("click", function(){
+            $("#no-button").on("click", function(){
 
                 cardCreate(searchResponse);
                 
