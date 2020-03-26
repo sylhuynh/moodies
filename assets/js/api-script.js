@@ -12,7 +12,7 @@ var long = "";
 var acceptButton = $("#accept-button");
 
 
-function hideBtns(){
+function hideBtns() {
     $("#y-btn").hide();
     $("#x-btn").hide();
     $("#accept-button").hide();
@@ -176,9 +176,9 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
 
             $("#accept-button").on("click", function () {
 
-               $("#restaurant-card").flip("toggle");
+                $("#restaurant-card").flip("toggle");
 
-                hideBtns();
+                // hideBtns();
 
             });
 
@@ -219,24 +219,31 @@ function cardCreate(searchResponse) {
         var cardImage = $("<img>").attr("src", restaurantsArray[randomRestaurantChoice].restaurant.featured_image);
 
     }
-    var cardTitle = $("<h2>").text(restaurantsArray[randomRestaurantChoice].restaurant.name);
+    var cardTitle = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.name).attr("class","card-title");
+
+    var cardImageDiv = $("<div>").attr("class", "card-image").append(cardImage, cardTitle);
+
     var cuisineTypeString = JSON.stringify(restaurantsArray[randomRestaurantChoice].restaurant.cuisines).toLowerCase();
     var cuisineType = JSON.parse(cuisineTypeString);
-    var cardInfo = $("<p>").text(restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " , " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
-    var reccomendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasoning[0] + "!");
-    var contactInfo = $("<p>").text("Give them a call: " + restaurantsArray[randomRestaurantChoice].restaurant.phone_numbers).attr("class", "card-content");
-    var addressInfo = $("<p>").text("Address: " + restaurantsArray[randomRestaurantChoice].restaurant.location.address).attr("class", "card-content");
-    var websiteInfo = $("<a>").text("Learn more.").attr("href", restaurantsArray[randomRestaurantChoice].restaurant.url).attr("class", "card-content").attr("target","_blank");
-    var cardFront = $("<div>").attr("class", "front card").attr("style","backface-visibility:hidden;");
-    var cardBack = $("<div>").attr("class", "back card").attr("style","backface-visibility:hidden;");
-    cardFront.append(cardImage, cardTitle, cardInfo, reccomendationReason);
-    cardBack.append(contactInfo, addressInfo, websiteInfo);
+    var cardInfo = $("<p>").text(restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
+    // var reccomendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasoning[0] + "!");
+    var cardContentFront = $("<div>").attr("class","card-content").append(cardInfo);
+    
+    
+    var restaurantInfo = $("<p>").html("Give them a call: " + restaurantsArray[randomRestaurantChoice].restaurant.phone_numbers+"<br>"+"Address: " + restaurantsArray[randomRestaurantChoice].restaurant.location.address);
+    var cardContentBack = $("<div>").attr("class","card-content").append(restaurantInfo);
+    var websiteInfo = $("<a>").text("Learn more").attr("href", restaurantsArray[randomRestaurantChoice].restaurant.url).attr("target", "_blank");    
+    var learnMore = $("<div>").attr("class","card-action").append(websiteInfo);
+    var cardFront = $("<div>").attr("class", "front card large");
+    var cardBack = $("<div>").attr("class", "back card large");
+    cardFront.append(cardImageDiv, cardContentFront);
+    cardBack.append(cardContentBack, learnMore);
     cardContainer.append(cardFront, cardBack);
 
     $("#restaurant-card").flip({
         axis: "y",
         trigger: "manual"
-    });  
+    });
 };
 // Run Functions
 getLocation();
