@@ -10,6 +10,15 @@ body {
     background-color: #FAEBD7;
 }
 
+.card-image {
+    opacity: 88%;
+
+}
+
+#restaurant-card{
+    height: 500px;
+}
+
 .logo-img {
     width: 50px;
     height: 50px;
