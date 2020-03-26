@@ -49,7 +49,6 @@ $(emotionChoice).on("click", function (event) {
 
     if (lat === "" && long === "") {
 
-        alert("please accept");
 
     }
 
@@ -59,34 +58,29 @@ $(emotionChoice).on("click", function (event) {
         var emotionChosen = $(this).attr("data-name");
         console.log(emotionChosen);
         if (emotionChosen === "sad") {
-            alert("Sad");
             var randomSadReasonChoice = sadReasonings[Math.floor(Math.random() * sadReasonings.length)];
             choiceReasoning.push(randomSadReasonChoice);
             findSadReccomendations();
-            showCardandBtns();
         }
 
         else if (emotionChosen === "angry") {
-            alert("Angry");
             var randomAngryReasonChoice = angryReasonings[Math.floor(Math.random() * angryReasonings.length)];
             choiceReasoning.push(randomAngryReasonChoice);
             findAngryReccomendations();
-            showCardandBtns();
         }
 
         else if (emotionChosen === "happy") {
-            alert("Happy");
             var randomHappyReasonChoice = happyReasonings[Math.floor(Math.random() * happyReasonings.length)];
             choiceReasoning.push(randomHappyReasonChoice);
             findHappyReccomendations();
-            showCardandBtns();
         }
 
 
         function findSadReccomendations() {
             //grab fast casual, taquerias, wine bars
             cuisineBasedOnEmotion = "fast casual, taquerias, wine bars";
-
+            hideDropDown();
+            $("#spinner").show();
             zomatoGeoResources(lat, long);
         };
 
@@ -94,6 +88,8 @@ $(emotionChoice).on("click", function (event) {
         function findAngryReccomendations() {
             //grab fast food, pizzerias, food truck
             cuisineBasedOnEmotion = "fast food, pizzerias, food truck";
+            hideDropDown();
+            $("#spinner").show();
             zomatoGeoResources(lat, long);
         };
 
@@ -101,19 +97,24 @@ $(emotionChoice).on("click", function (event) {
         function findHappyReccomendations() {
             //grab cafes, fine dining, bars
             cuisineBasedOnEmotion = "cafés, fine dining, bars";
+            hideDropDown();
+            $("#spinner").show();
             zomatoGeoResources(lat, long);
-        };
-
-        function showCardandBtns() {
-            $("#restaurant-card").show();
-            $(".btn-wrapper").show();
-
         };
 
     }
 
 });
 
+function showCardandBtns() {
+    $("#restaurant-card").show();
+    $(".btn-wrapper").show();
+
+};
+
+function hideDropDown() {
+    $("#dropdown-wrapper").hide();
+};
 
 function zomatoGeoResources(lat, long) {
 
@@ -158,7 +159,11 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
 
             var searchResponse = searchResponse;
 
+            $("#spinner").hide();
+
             cardCreate(searchResponse);
+            showCardandBtns();
+
 
             $("#no-button").on("click", function(){
 
@@ -173,6 +178,7 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
                 alert("Flip Card Content");
 
                 hideBtns();
+
             });
 
         });
