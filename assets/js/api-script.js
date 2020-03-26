@@ -178,7 +178,7 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
 
                 $("#restaurant-card").flip("toggle");
 
-                // hideBtns();
+                hideBtns();
 
             });
 
@@ -250,6 +250,8 @@ function cardCreate(searchResponse) {
         trigger: "manual"
     });
 };
+
+
 // Run Functions
 getLocation();
 
