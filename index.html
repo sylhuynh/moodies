@@ -8,6 +8,8 @@
 
     <!--Materialize CSS-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Pacifico|Sen|Volkhov&display=swap" rel="stylesheet">
     <!--Icon CSS-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!--Personal CSS-->
@@ -25,7 +27,7 @@
             <a href="#" class="sidenav-trigger right black-text text-darken-2" data-target="mobile-links">
                 <i class="material-icons"><i class="fa fa-bars"></i></i></a>
 
-            <ul class="right hide-on-med-and-down ">
+            <ul class="right hide-on-med-and-down" id = "side-links">
                 <li><a href="" class="black-text text-darken-2">Your Profile</a></li>
                 <li><a href="" class="black-text text-darken-2">Settings</a></li>
             </ul>
@@ -57,10 +59,10 @@
         <div class="col s2"></div>
         <div class="col s8" id="dropdown-wrapper">
             <!-- Dropdown Trigger -->
-            <a class='dropdown-trigger btn' href='#' data-target='emotion-dropdown' id="mood-dropdown">How are you
+            <a class="dropdown-trigger btn" href="#" data-target="emotion-dropdown" id="mood-dropdown">How are you
                 feeling?</a>
             <!-- Dropdown Structure -->
-            <ul id='emotion-dropdown' class='dropdown-content'>
+            <ul id="emotion-dropdown" class="dropdown-content">
                 <li id="emotion-choice" data-name="happy">Happy<span
                         style='font-size:20px; display: inline;'>&#128512;</span></li>
                 <li id="emotion-choice" data-name="sad">Sad<span
@@ -114,11 +116,11 @@
         <div class="footer-container">
             <div class="row">
                 <div class="col s12">
-                    <p class="black-text text-darken-2">© 2020 Copyright Text
-                        <a class="right" href="#"><i class="fa fa-envelope-o fa-2x"></i></a>
-                        <a class="right" href="#"><i class="fa fa-facebook-square fa-2x"></i></a>
-                        <a class="right" href="#"><i class="fa fa-instagram fa-2x"></i></a>
-                        <a class="right" href="#"> <i class="fa fa-github-square fa-2x"></i></a>
+                    <p class="black-text text-darken-2" id= "footer-text">© 2020 Copyright Text
+                        <a class="right" href="#" id= "contact-icons"><i class="fa fa-envelope-o fa-2x"></i></a>
+                        <a class="right" href="#" id= "contact-icons"><i class="fa fa-facebook-square fa-2x"></i></a>
+                        <a class="right" href="#" id= "contact-icons"><i class="fa fa-instagram fa-2x"></i></a>
+                        <a class="right" href="#" id= "contact-icons"> <i class="fa fa-github-square fa-2x"></i></a>
 
                     </p>
                 </div>
