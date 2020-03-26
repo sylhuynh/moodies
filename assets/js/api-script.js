@@ -42,22 +42,23 @@ $(emotionChoice).on("click", function (event) {
     else {
 
         choiceReasoning = [];
-        var emotionChosen = this.innerHTML;
-        if (emotionChosen === "Sad") {
+        var emotionChosen = $(this).attr("data-name");
+        console.log(emotionChosen);
+        if (emotionChosen === "sad") {
             alert("Sad");
             var randomSadReasonChoice = sadReasonings[Math.floor(Math.random() * sadReasonings.length)];
             choiceReasoning.push(randomSadReasonChoice);
             findSadReccomendations();
         }
 
-        else if (emotionChosen === "Angry") {
+        else if (emotionChosen === "angry") {
             alert("Angry");
             var randomAngryReasonChoice = angryReasonings[Math.floor(Math.random() * angryReasonings.length)];
             choiceReasoning.push(randomAngryReasonChoice);
             findAngryReccomendations();
         }
 
-        else if (emotionChosen === "Happy") {
+        else if (emotionChosen === "happy") {
             alert("Happy");
             var randomHappyReasonChoice = happyReasonings[Math.floor(Math.random() * happyReasonings.length)];
             choiceReasoning.push(randomHappyReasonChoice);
