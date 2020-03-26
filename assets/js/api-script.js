@@ -19,13 +19,11 @@ function hideBtns(){
     $("#no-button").hide();
     $("#hidden-div").show();
 
-    var matchText = $("<p>").text("It's a MATCH!");
-    matchText.attr("style", "font-size: 50px;")
+    var matchText = $("<p>").text("IT'S A MATCH!");
 
     $("#hidden-div").append(matchText);
 
 };
-
 function getLocation() {
 
     if (navigator.geolocation) {
@@ -43,6 +41,9 @@ function setLocation(location) {
     long = location.coords.longitude;
     console.log("lat " + lat);
     console.log("lon " + long);
+    openWeatherResources(lat, long);
+
+
 
 };
 
@@ -133,14 +134,12 @@ function zomatoGeoResources(lat, long) {
 
         console.log(response);
 
-        var cityName = response.location.city_name;
         var cityType = response.location.entity_type;
         var cityID = response.location.entity_id;
         var resultAmount = 20;
 
 
         zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAmount, lat, long);
-        openWeatherResources(cityName);
 
     });
 
@@ -186,15 +185,18 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
 
 };
 
-function openWeatherResources(city) {
+function openWeatherResources(lat, long) {
 
     var apiKey = "61884189ea401251c54c2d436ff4118c"
-    var cityName = city;
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&appid=" + apiKey;
 
     $.ajax({ url: queryURL, method: "GET" }).then(function (result) {
 
-        console.log(result)
+        var currentIcon = result.weather[0].icon
+
+        $(".logo-img").attr("src", "https://openweathermap.org/img/wn/" + currentIcon + "@2x.png")
+        $(".logo-img").show();
+
 
     });
 
