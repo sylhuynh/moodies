@@ -18,6 +18,7 @@ body {
 #restaurant-card{
     height: 500px;
 }
+
 .logo-img {
     width: 50px;
     height: 50px;
@@ -25,6 +26,13 @@ body {
     padding-bottom: 5px;
 }
 
+nav .brand-logo {
+    font-family: 'Volkhov', serif;
+}
+
+#mobile-links, #side-links {
+    font-family: 'Sen', sans-serif;
+}
 
 /* Jumbotron */
 #jumbotron-title {
@@ -33,20 +41,25 @@ body {
     margin-bottom: 400px;
 }
 
-/* Mood Dropdown */
-#mood-dropdown {
-    
-    margin-top: 60px;
-    height: 60px;
-    font-size: xx-large;
-    font-weight: bold ;
-    margin-top: 5px;
+.card-image {
+    opacity: 88%;
+
 }
+
+/* Mood Dropdown */
 #emotion-choice {
     text-align: center;
     font-size: x-large;
 }
 
+#emotion-dropdown, #mood-dropdown {
+    font-family: 'Sen', sans-serif;
+}
+
+#hidden-div {
+    font-family: 'Pacifico', cursive;
+    font-size: larger;
+}
 
 /* Footer */
 .page-footer {
@@ -54,6 +67,14 @@ body {
     margin-top: auto;
 }   
 
+#footer-text {
+    font-family: 'Sen', sans-serif;
+}
+
+#contact-icons {
+    color: black;
+    margin: 2px;
+}
 
 /* Media Query */
 @media (min-width:300px) {
@@ -80,7 +101,8 @@ body {
         margin: 0 auto;
         height: 60px;
         font-size: large;
-        font-weight: bold ;    
+        font-weight: bold;  
+        padding: 10px;  
     }
         
     #dropdown-wrapper {
@@ -118,7 +140,6 @@ body {
     #hero-container {
         margin-top: 0 auto ;
         width: 100%;
-        /* height: auto; */
     }
 
     #jumbotron-title {
@@ -138,7 +159,6 @@ body {
     #hero-container {
         margin: auto ;
         width: 900px;
-        /* height: auto; */
     }
 
     #dropdown-wrapper {
