@@ -24,8 +24,8 @@ body {
     font-weight: bold !important;
     margin-bottom: 400px;
 }
-/*Mood Dropdown*/
 
+/* Mood Dropdown */
 #mood-dropdown {
     
     margin-top: 60px;
@@ -53,35 +53,31 @@ body {
         height:40%;
         margin:0 auto;
     }
-/* <<<<<<< HEAD */
-        #hero-container {
-            margin: 0 auto;
-            width: 100%;
-            height: 40%;
-        }
-        #jumbotron-title {
-            font-size: x-large !important;
-            margin-bottom: 20%;
-            font-weight: bold !important;
-           
-        }
-        #mood-dropdown {
-            width: 100% !important;
-            margin: 0 auto;
-            height: 60px;
-            font-size: large;
-            font-weight: bold ;
-            
-        }
-        #dropdown-wrapper {
-            width: 100%;
-        }
-        
-        
-        
+
+    #hero-container {
+        margin: 0 auto;
+        width: 100%;
+        height: 40%;
+    }
     
-
-
+    #jumbotron-title {
+        font-size: x-large !important;
+        margin-bottom: 20%;
+        font-weight: bold !important;   
+    }
+        
+    #mood-dropdown {
+        width: 100% !important;
+        margin: 0 auto;
+        height: 60px;
+        font-size: large;
+        font-weight: bold ;    
+    }
+        
+    #dropdown-wrapper {
+        width: 100%;
+    }
+        
     #hero-container {
         margin: 0 auto;
         width: 100%;
@@ -102,16 +98,11 @@ body {
         margin:auto 40px 25% 40px;
         font-weight: bold !important;  
     }
-
-   
-
-
-
 }
 
 @media (min-width:700px){
     .card-image {
-    height: auto;
+        height: auto;
     }
     
     #hero-container {
