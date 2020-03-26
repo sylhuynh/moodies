@@ -130,21 +130,21 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
         },
         type: "GET"
     })
-        .then(function (searchResponse) {
+        .then(function (searchResponse){
 
             var searchResponse = searchResponse;
 
             cardCreate(searchResponse);
 
-            $("#no-button").on("click", function () {
+            $("#no-button").on("click", function(){
 
                 cardCreate(searchResponse);
-
+                
 
             });
 
-
-            $("#accept-button").on("click", function () {
+            
+            $("#accept-button").on("click", function(){
 
                 alert("Flip Card Content");
 
@@ -170,44 +170,40 @@ function openWeatherResources(city) {
 
 
 
-function cardCreate(searchResponse) {
-
+function cardCreate (searchResponse) {
+    
     cardContainer.empty();
-
+    console.log(searchResponse);
     var restaurantsArray = searchResponse.restaurants;
     var randomRestaurantChoice = Math.floor(Math.random() * restaurantsArray.length);
-
+    
     if (restaurantsArray[randomRestaurantChoice].restaurant.featured_image === "") {
 
         var cardImage = $("<img>").attr("src", "assets/images/placeholder-200x200.png").width(200);
-
-    }
+        
+    } 
     else {
 
         var cardImage = $("<img>").attr("src", restaurantsArray[randomRestaurantChoice].restaurant.featured_image).width(200);
 
     }
-    var cardImageDiv = $("<div>").attr("class", "card-image card-content").append(cardImage);
-    var cardFront = $("div").attr("class", "front");
-    var cardBack = $("div").attr("class", "back");
-    var cardTitle = $("<h2>").attr("class", "card-title card-content").text(restaurantsArray[randomRestaurantChoice].restaurant.name);
-    var cardInfo = $("<p>").text(restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " , " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
-    var cuisineTypeString = JSON.stringify(restaurantsArray[randomRestaurantChoice].restaurant.cuisines).toLowerCase();
-    var cuisineType = JSON.parse(cuisineTypeString);
-    var reccomendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasoning[0] + "!");
-    var cardContent = $("<div>").attr("class", "card-content").append(cardInfo, reccomendationReason)
-    // contact info
-    var contactInfo = $("<p>").text("&#128222 Give them a call: " + restaurantsArray[randomRestaurantChoice].restaurant.phone_numbers);
-    // address
-    var addressInfo = $("<p>").text("Address: " + restaurantsArray[randomRestaurantChoice].restaurant.location.address);
-    // website
-    var websiteInfo = $("<a>").text("Learn more").attr("href", restaurantsArray[randomRestaurantChoice].restaurant.url);
-    // menu link
-    var menuInfo = $("<a>").text("View menu").attr("href", restaurantsArray[randomRestaurantChoice].restaurant.menu_url);
-    cardFront.append(cardImageDiv, cardTitle, cardContent);
-    cardBack.append(cardImageDiv, cardTitle, contactInfo, addressInfo, websiteInfo, menuInfo);
-    cardContainer.append(cardFront);
-};
+    var cardFront = $("<div>").attr("class", "front");
+    var cardBack = $("<div>").attr("class","back");
+        var cardImageDiv = $("<div>").attr("class", "card-image card-content").append(cardImage);
+            var cardTitle = $("<h2>").attr("class", "card-title card-content").text(restaurantsArray[randomRestaurantChoice].restaurant.name);
+            var cardInfo = $("<p>").text(restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " , " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
+            var cuisineTypeString = JSON.stringify(restaurantsArray[randomRestaurantChoice].restaurant.cuisines).toLowerCase();
+            var cuisineType = JSON.parse(cuisineTypeString);
+            var reccomendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasoning[0] + "!");
+            var phoneNumberInfo = $("<p>").text("Give them a call: " + restaurantsArray[randomRestaurantChoice].restaurant.phone_numbers);
+            var addressInfo = $("<p>").text("Address: " + restaurantsArray[randomRestaurantChoice].restaurant.location.address);
+            var websiteInfo = $("<a>").text("Learn more").attr("src",restaurantsArray[randomRestaurantChoice].restaurant.url);
+            var cardContent = $("<div>").attr("class", "card-content").append(cardInfo, reccomendationReason)
+            cardFront.append(cardImageDiv, cardTitle, cardContent);
+            cardBack.append(phoneNumberInfo, addressInfo, websiteInfo);
+            cardContainer.append(cardFront, cardBack);
+            $(cardContainer).flip({axis: "y", trigger: "click"});
+};;
 
 // Run Functions
 getLocation();
