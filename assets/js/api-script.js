@@ -203,12 +203,13 @@ function openWeatherResources(city) {
 
 
 function cardCreate(searchResponse) {
-
+    console.log(searchResponse);
     cardContainer.empty();
 
     var restaurantsArray = searchResponse.restaurants;
     var randomRestaurantChoice = Math.floor(Math.random() * restaurantsArray.length);
 
+    // Card front image
     if (restaurantsArray[randomRestaurantChoice].restaurant.featured_image === "") {
 
         var cardImage = $("<img>").attr("src", "assets/images/placeholder-200x200.png");
@@ -219,26 +220,30 @@ function cardCreate(searchResponse) {
         var cardImage = $("<img>").attr("src", restaurantsArray[randomRestaurantChoice].restaurant.featured_image);
 
     }
-    var cardTitle = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.name).attr("class","card-title");
-
+    // Card front title & photo
+    var cardTitle = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.name).attr("class", "card-title");
     var cardImageDiv = $("<div>").attr("class", "card-image").append(cardImage, cardTitle);
 
+    // Card front info
     var cuisineTypeString = JSON.stringify(restaurantsArray[randomRestaurantChoice].restaurant.cuisines).toLowerCase();
     var cuisineType = JSON.parse(cuisineTypeString);
     var cardInfo = $("<p>").text(restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
-    // var reccomendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasoning[0] + "!");
-    var cardContentFront = $("<div>").attr("class","card-content").append(cardInfo);
-    
-    
-    var restaurantInfo = $("<p>").html("Give them a call: " + restaurantsArray[randomRestaurantChoice].restaurant.phone_numbers+"<br>"+"Address: " + restaurantsArray[randomRestaurantChoice].restaurant.location.address);
-    var cardContentBack = $("<div>").attr("class","card-content").append(restaurantInfo);
-    var websiteInfo = $("<a>").text("Learn more").attr("href", restaurantsArray[randomRestaurantChoice].restaurant.url).attr("target", "_blank");    
-    var learnMore = $("<div>").attr("class","card-action").append(websiteInfo);
+    var reccomendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasoning[0] + "!");
+    var cardContentFront = $("<div>").attr("class", "card-content").append(cardInfo, reccomendationReason);
     var cardFront = $("<div>").attr("class", "front card large");
-    var cardBack = $("<div>").attr("class", "back card large");
     cardFront.append(cardImageDiv, cardContentFront);
+
+    // Card back info
+    var restaurantInfo = $("<p>").html("Give them a call: " + "<br>" + restaurantsArray[randomRestaurantChoice].restaurant.phone_numbers + "<br><br>" + "Address: " + "<br>" + restaurantsArray[randomRestaurantChoice].restaurant.location.address);
+    var cardContentBack = $("<div>").attr("class", "card-content").append(restaurantInfo);
+    var websiteInfo = $("<a>").text("Learn more").attr("href", restaurantsArray[randomRestaurantChoice].restaurant.url).attr("target", "_blank");
+    var learnMore = $("<div>").attr("class", "card-action").append(websiteInfo);
+    var cardBack = $("<div>").attr("class", "back card large");
     cardBack.append(cardContentBack, learnMore);
+
+
     cardContainer.append(cardFront, cardBack);
+
 
     $("#restaurant-card").flip({
         axis: "y",

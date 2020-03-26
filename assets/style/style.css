@@ -15,8 +15,8 @@ body {
 
 }
 
-#reject-button{
-    left: 24px;
+#restaurant-card{
+    height: 500px;
 }
 .logo-img {
     width: 50px;
