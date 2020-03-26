@@ -10,19 +10,28 @@
     padding-bottom: 5px;
 }
 
-<<<<<<< HEAD
-=======
-.card-image {
-    
-}
 
->>>>>>> 83fb347c2cc4472de4a6e5a3ca115a9b3c0fb182
 /* Jumbotron */
 #jumbotron-title {
     font-size: 60px !important;
     font-weight: bold !important;
     margin-bottom: 400px;
 }
+/*Mood Dropdown*/
+
+#mood-dropdown {
+    
+    margin-top: 60px;
+    height: 60px;
+    font-size: xx-large;
+    font-weight: bold ;
+    margin-top: 5px;
+}
+#emotion-choice {
+    text-align: center;
+    font-size: x-large;
+}
+
 /* Footer */
 .page-footer {
     background-color: #FAEBD7;
@@ -36,6 +45,34 @@
         height:40%;
         margin:0 auto;
     }
+/* <<<<<<< HEAD */
+        #hero-container {
+            margin: 0 auto;
+            width: 100%;
+            height: 40%;
+        }
+        #jumbotron-title {
+            font-size: x-large !important;
+            margin-bottom: 20%;
+            font-weight: bold !important;
+           
+        }
+        #mood-dropdown {
+            width: 100% !important;
+            margin: 0 auto;
+            height: 60px;
+            font-size: large;
+            font-weight: bold ;
+            
+        }
+        #dropdown-wrapper {
+            width: 100%;
+        }
+        
+        
+        
+    
+
 
     #hero-container {
         margin: 0 auto;
@@ -48,6 +85,7 @@
         margin-bottom: 20%;
         font-weight: bold !important;
     }        
+
 }
 
 @media (min-width:500px){
@@ -56,6 +94,11 @@
         margin:auto 40px 25% 40px;
         font-weight: bold !important;  
     }
+
+   
+
+
+
 }
 
 @media (min-width:700px){
@@ -82,6 +125,10 @@
         font-weight: bold !important;
         margin: auto 50px 27% 50px;
     }
+    #dropdown-wrapper {
+        width: 60%;
+    }
+    
 }
 
 @media (min-width:1100px){
