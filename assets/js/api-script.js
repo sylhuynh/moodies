@@ -10,6 +10,20 @@ var angryReasonings = [" angry", " like you've been driven up the wall", " like 
 var lat = "";
 var long = "";
 
+
+function hideBtns(){
+    $("#y-btn").hide();
+    $("#x-btn").hide();
+    $("#accept-button").hide();
+    $("#no-button").hide();
+    $("#hidden-div").show();
+
+    var matchText = $("<p>").text("It's a MATCH!");
+
+    $("#hidden-div").append(matchText);
+
+};
+
 function getLocation() {
 
     if (navigator.geolocation) {
@@ -149,6 +163,7 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
 
                 alert("Flip Card Content");
 
+                hideBtns();
             });
 
         });
