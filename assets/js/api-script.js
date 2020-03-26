@@ -19,6 +19,7 @@ function hideBtns(){
     $("#hidden-div").show();
 
     var matchText = $("<p>").text("It's a MATCH!");
+    matchText.attr("style", "font-size: 50px;")
 
     $("#hidden-div").append(matchText);
 
@@ -175,9 +176,24 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
             
             $("#accept-button").on("click", function(){
 
-                alert("Flip Card Content");
-
                 hideBtns();
+
+                $("#myModal").show();
+
+                // Get the <span> element that closes the modal
+                var span = document.getElementsByClassName("close")[0];
+
+                // When the user clicks on <span> (x), close the modal
+                span.onclick = function() {
+                    $("#myModal").hide();
+                }
+
+                // When the user clicks anywhere outside of the modal, close it
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        $("#myModal").hide();
+                    }
+                };
 
             });
 
@@ -227,6 +243,7 @@ function cardCreate (searchResponse) {
             var cardContent = $("<div>").attr("class", "card-content").append(cardInfo, reccomendationReason)
             cardContainer.append(cardImageDiv, cardTitle, cardContent);
 };
+
 
 // Run Functions
 getLocation();
