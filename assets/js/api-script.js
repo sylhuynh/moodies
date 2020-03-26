@@ -63,6 +63,7 @@ $(emotionChoice).on("click", function (event) {
             var randomSadReasonChoice = sadReasonings[Math.floor(Math.random() * sadReasonings.length)];
             choiceReasoning.push(randomSadReasonChoice);
             findSadReccomendations();
+            showCardandBtns();
         }
 
         else if (emotionChosen === "angry") {
@@ -70,6 +71,7 @@ $(emotionChoice).on("click", function (event) {
             var randomAngryReasonChoice = angryReasonings[Math.floor(Math.random() * angryReasonings.length)];
             choiceReasoning.push(randomAngryReasonChoice);
             findAngryReccomendations();
+            showCardandBtns();
         }
 
         else if (emotionChosen === "happy") {
@@ -77,6 +79,7 @@ $(emotionChoice).on("click", function (event) {
             var randomHappyReasonChoice = happyReasonings[Math.floor(Math.random() * happyReasonings.length)];
             choiceReasoning.push(randomHappyReasonChoice);
             findHappyReccomendations();
+            showCardandBtns();
         }
 
 
@@ -99,6 +102,12 @@ $(emotionChoice).on("click", function (event) {
             //grab cafes, fine dining, bars
             cuisineBasedOnEmotion = "cafés, fine dining, bars";
             zomatoGeoResources(lat, long);
+        };
+
+        function showCardandBtns() {
+            $("#restaurant-card").show();
+            $(".btn-wrapper").show();
+
         };
 
     }
