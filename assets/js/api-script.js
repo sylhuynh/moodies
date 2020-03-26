@@ -130,31 +130,26 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
         },
         type: "GET"
     })
-        .then(function (searchResponse) {
+        .then(function (searchResponse){
 
-            var restaurantsArray = searchResponse.restaurants;
+            var searchResponse = searchResponse;
 
-            console.log(searchResponse);
-$(cardContainer).empty();
-var randomRestaurantChoice = Math.floor(Math.random() * restaurantsArray.length);
-            if (restaurantsArray[randomRestaurantChoice].restaurant.featured_image === "") {
+            cardCreate(searchResponse);
 
-                var cardImage = $("<img>").attr("src", "assets/images/placeholder-200x200.png").width(200);
+            $("#no-button").on("click", function(){
 
-            }
-            else {
+                cardCreate(searchResponse);
+                
 
-                var cardImage = $("<img>").attr("src", restaurantsArray[randomRestaurantChoice].restaurant.featured_image).width(200);
+            });
 
-            }
-            var cardImageDiv = $("<div>").attr("class", "card-image card-content").append(cardImage);
-            var cardTitle = $("<h2>").attr("class", "card-title card-content").text(restaurantsArray[randomRestaurantChoice].restaurant.name);
-            var cardInfo = $("<p>").text(restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " , " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
-            var cuisineTypeString = JSON.stringify(restaurantsArray[randomRestaurantChoice].restaurant.cuisines).toLowerCase();
-            var cuisineType = JSON.parse(cuisineTypeString);
-            var reccomendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasoning[0] + "!");
-            var cardContent = $("<div>").attr("class", "card-content").append(cardInfo, reccomendationReason)
-            cardContainer.append(cardImageDiv, cardTitle, cardContent);
+            
+            $("#accept-button").on("click", function(){
+
+                alert("Flip Card Content");
+
+            });
+
         });
 
 };
@@ -173,5 +168,37 @@ function openWeatherResources(city) {
 
 };
 
+
+
+function cardCreate (searchResponse) {
+    
+    cardContainer.empty();
+
+    var restaurantsArray = searchResponse.restaurants;
+    var randomRestaurantChoice = Math.floor(Math.random() * restaurantsArray.length);
+    
+    if (restaurantsArray[randomRestaurantChoice].restaurant.featured_image === "") {
+
+        var cardImage = $("<img>").attr("src", "assets/images/placeholder-200x200.png").width(200);
+        
+    } 
+    else {
+
+        var cardImage = $("<img>").attr("src", restaurantsArray[randomRestaurantChoice].restaurant.featured_image).width(200);
+
+    }
+    var cardImageDiv = $("<div>").attr("class", "card-image card-content").append(cardImage);
+            var cardTitle = $("<h2>").attr("class", "card-title card-content").text(restaurantsArray[randomRestaurantChoice].restaurant.name);
+            var cardInfo = $("<p>").text(restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " , " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
+            var cuisineTypeString = JSON.stringify(restaurantsArray[randomRestaurantChoice].restaurant.cuisines).toLowerCase();
+            var cuisineType = JSON.parse(cuisineTypeString);
+            var reccomendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasoning[0] + "!");
+            var cardContent = $("<div>").attr("class", "card-content").append(cardInfo, reccomendationReason)
+            cardContainer.append(cardImageDiv, cardTitle, cardContent);
+};
+
 // Run Functions
 getLocation();
+
+
+
