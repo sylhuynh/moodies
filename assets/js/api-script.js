@@ -11,6 +11,20 @@ var lat = "";
 var long = "";
 var acceptButton = $("#accept-button");
 
+
+function hideBtns(){
+    $("#y-btn").hide();
+    $("#x-btn").hide();
+    $("#accept-button").hide();
+    $("#no-button").hide();
+    $("#hidden-div").show();
+
+    var matchText = $("<p>").text("It's a MATCH!");
+
+    $("#hidden-div").append(matchText);
+
+};
+
 function getLocation() {
 
     if (navigator.geolocation) {
@@ -36,7 +50,6 @@ $(emotionChoice).on("click", function (event) {
 
     if (lat === "" && long === "") {
 
-        alert("please accept");
 
     }
 
@@ -46,21 +59,18 @@ $(emotionChoice).on("click", function (event) {
         var emotionChosen = $(this).attr("data-name");
         console.log(emotionChosen);
         if (emotionChosen === "sad") {
-            alert("Sad");
             var randomSadReasonChoice = sadReasonings[Math.floor(Math.random() * sadReasonings.length)];
             choiceReasoning.push(randomSadReasonChoice);
             findSadReccomendations();
         }
 
         else if (emotionChosen === "angry") {
-            alert("Angry");
             var randomAngryReasonChoice = angryReasonings[Math.floor(Math.random() * angryReasonings.length)];
             choiceReasoning.push(randomAngryReasonChoice);
             findAngryReccomendations();
         }
 
         else if (emotionChosen === "happy") {
-            alert("Happy");
             var randomHappyReasonChoice = happyReasonings[Math.floor(Math.random() * happyReasonings.length)];
             choiceReasoning.push(randomHappyReasonChoice);
             findHappyReccomendations();
@@ -70,7 +80,8 @@ $(emotionChoice).on("click", function (event) {
         function findSadReccomendations() {
             //grab fast casual, taquerias, wine bars
             cuisineBasedOnEmotion = "fast casual, taquerias, wine bars";
-
+            hideDropDown();
+            $("#spinner").show();
             zomatoGeoResources(lat, long);
         };
 
@@ -78,6 +89,8 @@ $(emotionChoice).on("click", function (event) {
         function findAngryReccomendations() {
             //grab fast food, pizzerias, food truck
             cuisineBasedOnEmotion = "fast food, pizzerias, food truck";
+            hideDropDown();
+            $("#spinner").show();
             zomatoGeoResources(lat, long);
         };
 
@@ -85,6 +98,8 @@ $(emotionChoice).on("click", function (event) {
         function findHappyReccomendations() {
             //grab cafes, fine dining, bars
             cuisineBasedOnEmotion = "cafés, fine dining, bars";
+            hideDropDown();
+            $("#spinner").show();
             zomatoGeoResources(lat, long);
         };
 
@@ -92,6 +107,15 @@ $(emotionChoice).on("click", function (event) {
 
 });
 
+function showCardandBtns() {
+    $("#restaurant-card").show();
+    $(".btn-wrapper").show();
+
+};
+
+function hideDropDown() {
+    $("#dropdown-wrapper").hide();
+};
 
 function zomatoGeoResources(lat, long) {
 
@@ -136,7 +160,11 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
 
             var searchResponse = searchResponse;
 
+            $("#spinner").hide();
+
             cardCreate(searchResponse);
+            showCardandBtns();
+
 
             $("#no-button").on("click", function () {
 
@@ -149,6 +177,8 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
             $("#accept-button").on("click", function () {
 
                $("#restaurant-card").flip("toggle");
+
+                hideBtns();
 
             });
 

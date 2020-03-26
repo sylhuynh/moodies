@@ -17,27 +17,27 @@
 </head>
 
 <body>
-       <!--Navigation Bar-->
-       <nav>
+    <!--Navigation Bar-->
+    <nav>
         <div class="nav-wrapper">
-            <img class="logo-img" src="assets/images/Orange Sun 200px.png" alt="orange with chips sun"> 
+            <img class="logo-img" src="assets/images/Orange Sun 200px.png" alt="orange with chips sun">
             <a href="index.html" class="brand-logo black-text text-darken-2">MOODIES</a>
             <a href="#" class="sidenav-trigger right black-text text-darken-2" data-target="mobile-links">
-                <i class="material-icons"><i class="fa fa-bars"></i>
-            </i>
-            </a>
+                <i class="material-icons"><i class="fa fa-bars"></i></i></a>
 
             <ul class="right hide-on-med-and-down ">
                 <li><a href="" class="black-text text-darken-2">Your Profile</a></li>
-                <li><a href="" class="black-text text-darken-2" >Settings</a></li>
+                <li><a href="" class="black-text text-darken-2">Settings</a></li>
             </ul>
         </div>
     </nav>
 
-    <ul class="sidenav" id="mobile-links">
-        <li><a href="">Your Profile</a></li>
-        <li><a href="" >Settings</a></li>
-    </ul>
+    <div class="sidenav-wrapper">
+        <ul class="sidenav" id="mobile-links">
+            <li><a href="">Your Profile</a></li>
+            <li><a href="">Settings</a></li>
+        </ul>
+    </div>
 
 
     <!--Jumbotron with tag line-->
@@ -53,39 +53,57 @@
     </div>
 
     <!--Dropdown Bar-->
-    <div class="row" >
+    <div class="row">
         <div class="col s2"></div>
-        <div class="col s8" id = "dropdown-wrapper">
-            <!-- INSERT DROPDOWN BAR HERE -->
+        <div class="col s8" id="dropdown-wrapper">
             <!-- Dropdown Trigger -->
-            <a class='dropdown-trigger btn' href='#' data-target='emotion-dropdown' id="mood-dropdown">How are you feeling?</a>
+            <a class='dropdown-trigger btn' href='#' data-target='emotion-dropdown' id="mood-dropdown">How are you
+                feeling?</a>
             <!-- Dropdown Structure -->
             <ul id='emotion-dropdown' class='dropdown-content'>
-                <li id="emotion-choice" data-name="happy">Happy<span style='font-size:20px; display: inline;'>&#128512;</span></li>
-                <li id="emotion-choice" data-name="sad">Sad<span style='font-size:20px; display: inline;'>&#128542;</span></li>
-                <li id="emotion-choice" data-name="angry">Angry<span style='font-size:20px; display: inline;'>&#128544;</span></li>
+                <li id="emotion-choice" data-name="happy">Happy<span
+                        style='font-size:20px; display: inline;'>&#128512;</span></li>
+                <li id="emotion-choice" data-name="sad">Sad<span
+                        style='font-size:20px; display: inline;'>&#128542;</span></li>
+                <li id="emotion-choice" data-name="angry">Angry<span
+                        style='font-size:20px; display: inline;'>&#128544;</span></li>
             </ul>
-            
+
             <div class="col s2"></div>
         </div>
     </div>
-    <!--Restaurant Cards-->
+
     <div class="row">
         <div class="col s12">
-            <div class="row">
-                <div class="col s12">
-                    <div class="card" id="restaurant-card">
+            <i class="fa fa-spinner fa-3x" style="display: none;" id="spinner"></i>
+        </div>
 
-                        INSERT RESTAURANT CARD
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <!--Restaurant Cards-->
+            <div class="row">
+                <div class="col s1"></div>
+                <div class="col s10">
+                    <div class="card" id="restaurant-card">
+                        
                     </div>
                 </div>
+                <div class="col s1"></div>
             </div>
+            <!--Yes/No Btns-->
             <div class="row">
-                <div class="col s6">
-                    <a class="btn-floating btn-large waves-effect waves-light red" ><i class ="material-icons" id="no-button">✗</i></a>
-                </div>
-                <div class="col s6">
-                    <a class="btn-floating btn-large waves-effect waves-light red" ><i class="material-icons" id="accept-button">✔</i></a>
+                <div class="btn-wrapper" style= "display: none;">
+                    <div class="col s5">
+                        <a class="btn-floating btn-large waves-effect waves-light red right" id="x-btn"><i
+                                class="material-icons" id="no-button">✗</i></a>
+                    </div>
+                    <div class="col s2" id="hidden-div" style="display: none;"></div>
+                    <div class="col s5">
+                        <a class="btn-floating btn-large waves-effect waves-light red left" id="y-btn"><i
+                                class="material-icons" id="accept-button">✔</i></a>
+                    </div>
                 </div>
             </div>
         </div>
