@@ -63,6 +63,7 @@ nav .brand-logo {
 }
 
 #emotion-choice {
+    padding-top: 10px;
     text-align: center;
     font-size: x-large;
 }
@@ -229,6 +230,15 @@ nav .brand-logo {
         font-weight: bold !important;
         text-align: center;
         margin: 0 50px 100px 50px;
+    }
+
+    .logo-img {
+        width: 50px;
+        height: 100%;
+        margin: 0;
+        margin-right: 10px;
+        background-color: rgba(99, 92, 82, 0.205);
+    
     }
 }
 
