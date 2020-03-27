@@ -170,15 +170,15 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
 
             cardCreate(searchResponse);
 
+        });
 
-            $("#accept-button").on("click", function () {
-                // hideBtns();
-                modalContent()
-                $("#myModal").show();
+        $("#accept-button").on("click", function () {
 
-            });
+            modalContent();
 
         });
+
+        
 
     });
 
@@ -214,9 +214,8 @@ function cardCreate(searchResponse) {
 
     var cardImage = $("<img>").attr("src", restaurantsArray[randomRestaurantChoice].restaurant.featured_image).attr("class","activator");
 
-
     // Card front title & photo
-    var cardImageDiv = $("<div>").attr("class", "card-image waves-effect waves-block waves-light").append(cardImage);
+    var cardImageDiv = $("<div>").attr("class", "card-image").append(cardImage);
     
     // Card front info
     var expandIcon = $("<i>").attr("class","material-icons right").html("...");
@@ -248,9 +247,13 @@ function cardCreate(searchResponse) {
 
 function modalContent(){
 
-    var matchText = $("<p>").text("IT'S A MATCH!");
+    var matchText = $("<p>")
+
+    matchText.text("IT'S A MATCH!");
     
     $("#hidden-div").append(matchText);
+
+    $("#myModal").show();
 
 };
 
@@ -260,14 +263,14 @@ var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on <span> (x), close the modal
 $(span).on("click", function() {
-
+    $("#hidden-div").empty();
     $("#myModal").hide();
 
 })
 
 // When the user clicks anywhere outside of the modal, close it
 $("#myModal").on("click", function() {
-
+    $("#hidden-div").empty();
     $("#myModal").hide();
 
 });
