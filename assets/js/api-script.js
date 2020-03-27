@@ -1,9 +1,9 @@
 var resultsContainer = $("#results-container");
 var emotionDropdown = $("#emotion-dropdown");
 var emotionChoice = $("#emotion-dropdown li");
-var cardContainer = $("#restaurant-card");
+var resultsCardContainer = $("#restaurant-card");
 var cuisineBasedOnEmotion = "";
-var choiceReasoning = [];
+var choiceReasonFeelingBlurb = [];
 var sadReasonings = [" down on your luck", " not up to par", " like you need a pick-me-up", " down", " out of sorts", " not so hot", " blue", " in the dumps", " a bummer", " out of sorts", " sad", " sad dog"];
 var happyReasonings = [" happy", " chipper", " like everything's going your way", " like you're on cloud nine", " over the moon", " happy as a clam", " tickled pink", " on top of the world", " like you're walking on air", " like a dog with two tails", " you're grinning from ear to ear", " like a happy camper"];
 var angryReasonings = [" angry", " like you've been driven up the wall", " like you've had it up to here", " like you've taken all you can take", " fed up", " things are getting on your nerves", " tilted", " salty", " your hands clenching", " like you're turning red", " like biting someone's head off", " like you're going to blow a fuse"];
@@ -48,7 +48,7 @@ function setLocation(location) {
 };
 
 
-$(emotionChoice).on("click", function (event) {
+$(emotionChoice).on("click", function moodToFood(selectedEmotion) {
 
     if (lat === "" && long === "") {
 
@@ -57,24 +57,24 @@ $(emotionChoice).on("click", function (event) {
 
     else {
 
-        choiceReasoning = [];
+        choiceReasonFeelingBlurb = [];
         var emotionChosen = $(this).attr("data-name");
         console.log(emotionChosen);
         if (emotionChosen === "sad") {
             var randomSadReasonChoice = sadReasonings[Math.floor(Math.random() * sadReasonings.length)];
-            choiceReasoning.push(randomSadReasonChoice);
+            choiceReasonFeelingBlurb.push(randomSadReasonChoice);
             findSadReccomendations();
         }
 
         else if (emotionChosen === "angry") {
             var randomAngryReasonChoice = angryReasonings[Math.floor(Math.random() * angryReasonings.length)];
-            choiceReasoning.push(randomAngryReasonChoice);
+            choiceReasonFeelingBlurb.push(randomAngryReasonChoice);
             findAngryReccomendations();
         }
 
         else if (emotionChosen === "happy") {
             var randomHappyReasonChoice = happyReasonings[Math.floor(Math.random() * happyReasonings.length)];
-            choiceReasoning.push(randomHappyReasonChoice);
+            choiceReasonFeelingBlurb.push(randomHappyReasonChoice);
             findHappyReccomendations();
         }
 
@@ -112,7 +112,6 @@ $(emotionChoice).on("click", function (event) {
 function showCardandBtns() {
     $("#restaurant-card").show();
     $(".btn-wrapper").show();
-
 };
 
 function hideDropDown() {
@@ -172,14 +171,12 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
             cardCreate(searchResponse);
 
 
-        });
+            $("#accept-button").on("click", function () {
+                // hideBtns();
+                modalContent()
+                $("#myModal").show();
 
-        $("#accept-button").on("click", function () {
-
-            hideBtns();
-            newText();
-            $("#myModal").show();
-
+            });
 
         });
 
@@ -208,20 +205,55 @@ function openWeatherResources(lat, long) {
 
 function cardCreate(searchResponse) {
 
+    resultsCardContainer.empty();
 
+    var restaurantsArray = searchResponse.restaurants
+    var randomRestaurantChoice = Math.floor(Math.random() * restaurantsArray.length);
+
+    var cardImage = $("<img>").attr("src", "assets/images/placeholder-200x200.png").attr("class","activator");
+
+    var cardImage = $("<img>").attr("src", restaurantsArray[randomRestaurantChoice].restaurant.featured_image).attr("class","activator");
+
+
+    // Card front title & photo
+    var cardImageDiv = $("<div>").attr("class", "card-image waves-effect waves-block waves-light").append(cardImage);
+    
+    // Card front info
+    var expandIcon = $("<i>").attr("class","material-icons right").html("...");
+    var cardTitle = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.name).attr("class", "card-title activator grey-text text-darken-4").append(expandIcon);
+    var cuisineTypeString = JSON.stringify(restaurantsArray[randomRestaurantChoice].restaurant.cuisines).toLowerCase();
+    var cuisineType = JSON.parse(cuisineTypeString);
+    var cardInfo = $("<p>").text(restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
+    var reccomendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasonFeelingBlurb[0] + "!");
+    var cardContentFront = $("<div>").attr("class", "card-content").append(cardTitle, cardInfo, reccomendationReason);
+    var websiteInfo = $("<a>").text("Learn more").attr("href", restaurantsArray[randomRestaurantChoice].restaurant.url).attr("target", "_blank");
+    var learnMore = $("<div>").attr("class", "card-action").append(websiteInfo);
+    var cardFront = $("<div>").attr("class", "card large");
+    
+    // Card reveal info
+    var collapseIcon = $("<i>").attr("class","material-icons right").html("X");
+    var cardRevealTitle = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.name).attr("class", "card-title grey-text text-darken-4").append(collapseIcon);
+    var restaurantInfo = $("<p>").html("Give them a call: " + "<br>" + restaurantsArray[randomRestaurantChoice].restaurant.phone_numbers + "<br><br>" + "Address: " + "<br>" + restaurantsArray[randomRestaurantChoice].restaurant.location.address);
+    var cardContentBack = $("<div>").attr("class", "card-content").append(restaurantInfo);
+    var cardReveal = $("<div>").attr("class", "card-reveal");
+
+    cardReveal.append(cardRevealTitle,cardContentBack);
+    cardFront.append(cardImageDiv, cardContentFront, learnMore, cardReveal);
+
+
+   $("#restaurant-card").append(cardFront);
 
 };
 
 
+function modalContent(){
 
-
-function newText(){
-
-    var pTagFront2 = $("<p>").attr("class", "acitvator");
-    pTagFront2.text("Click Me For More Info");
-    divCardContent.append(pTagFront2);
+    var matchText = $("<p>").text("IT'S A MATCH!");
+    
+    $("#hidden-div").append(matchText);
 
 };
+
     
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
