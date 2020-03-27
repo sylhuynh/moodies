@@ -1,6 +1,10 @@
 body {
     min-height: 100vh;
     background-color: rgb(245, 245, 245);
+    background-image: url("../images/test-background.png");
+    /* background-repeat: no-repeat; */
+    background-position: center;
+    background-size: contain;
     display: flex;
     flex-direction: column;
 }
@@ -23,9 +27,8 @@ body {
     width: 50px;
     height: 100%;
     margin: 0;
-    /* padding-bottom: 5px; */
+    margin-right: 10px;
     background-color: rgba(99, 92, 82, 0.205);
-    /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19); */
 
 }
 
@@ -44,9 +47,12 @@ nav .brand-logo {
     margin-bottom: 400px;
 }
 
-.card-image {
-    opacity: 88%;
+#hero-container {
+    background-color: rgba(154, 171, 137, 0.753);
+}
 
+#hero-image {
+    opacity: 0%;
 }
 
 /* Mood Dropdown */
@@ -195,34 +201,34 @@ nav .brand-logo {
 
     #jumbotron-title {
         font-size: x-large !important;
-        margin-bottom: 20%;
+        margin-bottom: 1%;
+        text-align: center;
         font-weight: bold !important;
     }        
 
 }
 
-@media (min-width:500px){
+@media (min-width:400px){    
+
     #jumbotron-title {
         font-size: x-large !important;
-        margin:auto 40px 25% 40px;
-        font-weight: bold !important;  
-    }
+        margin-bottom: 10%;
+        text-align: center;
+        font-weight: bold !important;
+    }  
 }
 
-@media (min-width:700px){
-    .card-image {
-        height: auto;
-    }
-    
+@media (min-width:700px){    
     #hero-container {
-        margin-top: 0 auto ;
-        width: 100%;
+        margin: auto ;
+        width: 700px;
     }
 
     #jumbotron-title {
         font-size: 40px !important;
         font-weight: bold !important;
-        margin: 0 35px 100px 35px;
+        text-align: center;
+        margin: 0 50px 100px 50px;
     }
 }
 
@@ -230,12 +236,13 @@ nav .brand-logo {
     #jumbotron-title {
         font-size: 40px !important;
         font-weight: bold !important;
-        margin: 0 50px 200px 50px;
+        text-align: center;
+        margin: 0 50px 100px 50px;
     }
 
     #hero-container {
         margin: auto ;
-        width: 900px;
+        width: 700px;
     }
 
     #dropdown-wrapper {

@@ -120,7 +120,7 @@ function hideDropDown() {
 };
 
 function zomatoGeoResources(lat, long) {
-
+    
     var searchURL = "https://developers.zomato.com/api/v2.1/geocode?lat=" + lat + "&lon=" + long
     $.ajax({
         url: searchURL,
@@ -157,6 +157,8 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
         type: "GET"
     }).then(function (searchResponse) {
 
+        $("#card-restaurant-row").show();
+
         var searchResponse = searchResponse;
 
         $("#spinner").hide();
@@ -169,15 +171,15 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
 
             cardCreate(searchResponse);
 
+
         });
 
         $("#accept-button").on("click", function () {
 
-            $("#restaurant-card").flip("toggle");
-
             hideBtns();
-
+            newText();
             $("#myModal").show();
+
 
         });
 
@@ -205,54 +207,22 @@ function openWeatherResources(lat, long) {
 
 
 function cardCreate(searchResponse) {
-    console.log(searchResponse);
-    cardContainer.empty();
-
-    var restaurantsArray = searchResponse.restaurants;
-    var randomRestaurantChoice = Math.floor(Math.random() * restaurantsArray.length);
-
-    // Card front image
-    if (restaurantsArray[randomRestaurantChoice].restaurant.featured_image === "") {
-
-        var cardImage = $("<img>").attr("src", "assets/images/placeholder-200x200.png");
-
-    }
-    else {
-
-        var cardImage = $("<img>").attr("src", restaurantsArray[randomRestaurantChoice].restaurant.featured_image);
-
-    }
-    // Card front title & photo
-    var cardTitle = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.name).attr("class", "card-title");
-    var cardImageDiv = $("<div>").attr("class", "card-image").append(cardImage, cardTitle);
-
-    // Card front info
-    var cuisineTypeString = JSON.stringify(restaurantsArray[randomRestaurantChoice].restaurant.cuisines).toLowerCase();
-    var cuisineType = JSON.parse(cuisineTypeString);
-    var cardInfo = $("<p>").text(restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
-    var reccomendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasoning[0] + "!");
-    var cardContentFront = $("<div>").attr("class", "card-content").append(cardInfo, reccomendationReason);
-    var cardFront = $("<div>").attr("class", "front card large");
-    cardFront.append(cardImageDiv, cardContentFront);
-
-    // Card back info
-    var restaurantInfo = $("<p>").html("Give them a call: " + "<br>" + restaurantsArray[randomRestaurantChoice].restaurant.phone_numbers + "<br><br>" + "Address: " + "<br>" + restaurantsArray[randomRestaurantChoice].restaurant.location.address);
-    var cardContentBack = $("<div>").attr("class", "card-content").append(restaurantInfo);
-    var websiteInfo = $("<a>").text("Learn more").attr("href", restaurantsArray[randomRestaurantChoice].restaurant.url).attr("target", "_blank");
-    var learnMore = $("<div>").attr("class", "card-action").append(websiteInfo);
-    var cardBack = $("<div>").attr("class", "back card large");
-    cardBack.append(cardContentBack, learnMore);
 
 
-    cardContainer.append(cardFront, cardBack);
 
-
-    $("#restaurant-card").flip({
-        axis: "y",
-        trigger: "manual"
-    });
 };
 
+
+
+
+function newText(){
+
+    var pTagFront2 = $("<p>").attr("class", "acitvator");
+    pTagFront2.text("Click Me For More Info");
+    divCardContent.append(pTagFront2);
+
+};
+    
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
