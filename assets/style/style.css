@@ -1,6 +1,10 @@
 body {
     min-height: 100vh;
-
+    background-color: rgb(245, 245, 245);
+    background-image: url("../images/test-background.png");
+    /* background-repeat: no-repeat; */
+    background-position: center;
+    background-size: contain;
     display: flex;
     flex-direction: column;
 }
@@ -17,14 +21,15 @@ body {
 
 #restaurant-card{
     height: 500px;
-    width: 500px;
 }
 
 .logo-img {
     width: 50px;
-    height: 50px;
-    margin: 10px;
-    padding-bottom: 5px;
+    height: 100%;
+    margin: 0;
+    margin-right: 10px;
+    background-color: rgba(99, 92, 82, 0.205);
+
 }
 
 nav .brand-logo {
@@ -42,15 +47,92 @@ nav .brand-logo {
     margin-bottom: 400px;
 }
 
-.card-image {
-    opacity: 88%;
+#hero-container {
+    background-color: rgba(154, 171, 137, 0.753);
+}
 
+#hero-image {
+    opacity: 0%;
 }
 
 /* Mood Dropdown */
+#mood-dropdown {
+    background-color: #9AAB89;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+
+}
+
 #emotion-choice {
+    padding-top: 10px;
     text-align: center;
     font-size: x-large;
+}
+
+.modal {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+.modal-content {
+    position: relative;
+    background-color: white;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+  }
+  
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+  
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+  
+.modal-body {padding: 2px 16px;}
+  
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
 }
 
 #emotion-dropdown, #mood-dropdown {
@@ -59,7 +141,9 @@ nav .brand-logo {
 
 #hidden-div {
     font-family: 'Pacifico', cursive;
-    font-size: larger;
+    color: #9AAB89;
+    font-size: 50px;
+    text-shadow: 2px 2px rgb(123, 136, 110);
 }
 
 /* Footer */
@@ -119,34 +203,43 @@ nav .brand-logo {
 
     #jumbotron-title {
         font-size: x-large !important;
-        margin-bottom: 20%;
+        margin-bottom: 1%;
+        text-align: center;
         font-weight: bold !important;
     }        
 
 }
 
-@media (min-width:500px){
+@media (min-width:400px){    
+
     #jumbotron-title {
         font-size: x-large !important;
-        margin:auto 40px 25% 40px;
-        font-weight: bold !important;  
-    }
+        margin-bottom: 10%;
+        text-align: center;
+        font-weight: bold !important;
+    }  
 }
 
-@media (min-width:700px){
-    .card-image {
-        height: auto;
-    }
-    
+@media (min-width:700px){    
     #hero-container {
-        margin-top: 0 auto ;
-        width: 100%;
+        margin: auto ;
+        width: 700px;
     }
 
     #jumbotron-title {
         font-size: 40px !important;
         font-weight: bold !important;
-        margin: 0 35px 100px 35px;
+        text-align: center;
+        margin: 0 50px 100px 50px;
+    }
+
+    .logo-img {
+        width: 75px;
+        height: 100%;
+        margin: 0;
+        margin-right: 10px;
+        background-color: rgba(99, 92, 82, 0.205);
+    
     }
 }
 
@@ -154,12 +247,13 @@ nav .brand-logo {
     #jumbotron-title {
         font-size: 40px !important;
         font-weight: bold !important;
-        margin: 0 50px 200px 50px;
+        text-align: center;
+        margin: 0 50px 100px 50px;
     }
 
     #hero-container {
         margin: auto ;
-        width: 900px;
+        width: 700px;
     }
 
     #dropdown-wrapper {

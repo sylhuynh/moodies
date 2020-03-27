@@ -19,12 +19,11 @@ function hideBtns() {
     $("#no-button").hide();
     $("#hidden-div").show();
 
-    var matchText = $("<p>").text("It's a MATCH!");
+    var matchText = $("<p>").text("IT'S A MATCH!");
 
     $("#hidden-div").append(matchText);
 
 };
-
 function getLocation() {
 
     if (navigator.geolocation) {
@@ -42,6 +41,9 @@ function setLocation(location) {
     long = location.coords.longitude;
     console.log("lat " + lat);
     console.log("lon " + long);
+    openWeatherResources(lat, long);
+
+
 
 };
 
@@ -110,7 +112,6 @@ $(emotionChoice).on("click", function moodToFood(selectedEmotion) {
 function showCardandBtns() {
     $("#restaurant-card").show();
     $(".btn-wrapper").show();
-
 };
 
 function hideDropDown() {
@@ -118,7 +119,7 @@ function hideDropDown() {
 };
 
 function zomatoGeoResources(lat, long) {
-
+    
     var searchURL = "https://developers.zomato.com/api/v2.1/geocode?lat=" + lat + "&lon=" + long
     $.ajax({
         url: searchURL,
@@ -127,21 +128,19 @@ function zomatoGeoResources(lat, long) {
             'Accept': 'application/json'
         },
         type: "GET"
-    })
-        .then(function (response) {
+    
+    }).then(function (response) {
 
-            console.log(response);
+        console.log(response);
 
-            var cityName = response.location.city_name;
-            var cityType = response.location.entity_type;
-            var cityID = response.location.entity_id;
-            var resultAmount = 20;
+        var cityType = response.location.entity_type;
+        var cityID = response.location.entity_id;
+        var resultAmount = 20;
 
 
-            zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAmount, lat, long);
-            openWeatherResources(cityName);
+        zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAmount, lat, long);
 
-        });
+    });
 
 }
 
@@ -155,46 +154,48 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
             'Accept': 'application/json'
         },
         type: "GET"
-    })
-        .then(function (searchResponse) {
+    }).then(function (searchResponse) {
 
-            var searchResponse = searchResponse;
+        $("#card-restaurant-row").show();
 
-            $("#spinner").hide();
+        var searchResponse = searchResponse;
+
+        $("#spinner").hide();
+
+        cardCreate(searchResponse);
+        showCardandBtns();
+
+
+        $("#no-button").on("click", function () {
 
             cardCreate(searchResponse);
-            showCardandBtns();
-
-
-            $("#no-button").on("click", function () {
-
-                cardCreate(searchResponse);
-
-
-            });
-
-
-            // $("#accept-button").on("click", function () {
-            //     // hideBtns();
-
-            // });
 
         });
 
+        $("#accept-button").on("click", function () {
+
+            modalContent();
+
+        });
+
+        
+
+    });
+
 };
 
-
-
-
-function openWeatherResources(city) {
+function openWeatherResources(lat, long) {
 
     var apiKey = "61884189ea401251c54c2d436ff4118c"
-    var cityName = city;
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&appid=" + apiKey;
 
     $.ajax({ url: queryURL, method: "GET" }).then(function (result) {
 
-        console.log(result)
+        var currentIcon = result.weather[0].icon
+
+        $(".logo-img").attr("src", "https://openweathermap.org/img/wn/" + currentIcon + "@2x.png")
+        $(".logo-img").show();
+
 
     });
 
@@ -203,24 +204,18 @@ function openWeatherResources(city) {
 
 
 function cardCreate(searchResponse) {
+
     resultsCardContainer.empty();
 
-    var restaurantsArray = searchResponse.restaurants;
+    var restaurantsArray = searchResponse.restaurants
     var randomRestaurantChoice = Math.floor(Math.random() * restaurantsArray.length);
 
-    // Card front image
-    if (restaurantsArray[randomRestaurantChoice].restaurant.featured_image === "") {
+    var cardImage = $("<img>").attr("src", "assets/images/placeholder-200x200.png").attr("class","activator");
 
-        var cardImage = $("<img>").attr("src", "assets/images/placeholder-200x200.png").attr("class","activator");
+    var cardImage = $("<img>").attr("src", restaurantsArray[randomRestaurantChoice].restaurant.featured_image).attr("class","activator");
 
-    }
-    else {
-
-        var cardImage = $("<img>").attr("src", restaurantsArray[randomRestaurantChoice].restaurant.featured_image).attr("class","activator");
-
-    }
     // Card front title & photo
-    var cardImageDiv = $("<div>").attr("class", "card-image waves-effect waves-block waves-light").append(cardImage);
+    var cardImageDiv = $("<div>").attr("class", "card-image").append(cardImage);
     
     // Card front info
     var expandIcon = $("<i>").attr("class","material-icons right").html("...");
@@ -247,11 +242,38 @@ function cardCreate(searchResponse) {
 
    $("#restaurant-card").append(cardFront);
 
+};
 
 
+function modalContent(){
+
+    var matchText = $("<p>")
+
+    matchText.text("IT'S A MATCH!");
+    
+    $("#hidden-div").append(matchText);
+
+    $("#myModal").show();
 
 };
 
+    
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+$(span).on("click", function() {
+    $("#hidden-div").empty();
+    $("#myModal").hide();
+
+})
+
+// When the user clicks anywhere outside of the modal, close it
+$("#myModal").on("click", function() {
+    $("#hidden-div").empty();
+    $("#myModal").hide();
+
+});
 
 // Run Functions
 getLocation();
