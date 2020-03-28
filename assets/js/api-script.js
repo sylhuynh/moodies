@@ -155,7 +155,7 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
         },
         type: "GET"
     }).then(function (searchResponse) {
-
+console.log(searchResponse);
         $("#card-restaurant-row").show();
 
         var searchResponse = searchResponse;
