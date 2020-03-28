@@ -1,17 +1,30 @@
+// Index Globals //
 var resultsContainer = $("#results-container");
 var emotionDropdown = $("#emotion-dropdown");
 var emotionChoice = $("#emotion-dropdown li");
 var resultsCardContainer = $("#restaurant-card");
+var acceptButton = $("#accept-button");
+
+// Zomato Globals //
 var cuisineBasedOnEmotion = "";
 var choiceReasonFeelingBlurb = [];
 var sadReasonings = [" down on your luck", " not up to par", " like you need a pick-me-up", " down", " out of sorts", " not so hot", " blue", " in the dumps", " a bummer", " out of sorts", " sad", " sad dog"];
 var happyReasonings = [" happy", " chipper", " like everything's going your way", " like you're on cloud nine", " over the moon", " happy as a clam", " tickled pink", " on top of the world", " like you're walking on air", " like a dog with two tails", " you're grinning from ear to ear", " like a happy camper"];
 var angryReasonings = [" angry", " like you've been driven up the wall", " like you've had it up to here", " like you've taken all you can take", " fed up", " things are getting on your nerves", " tilted", " salty", " your hands clenching", " like you're turning red", " like biting someone's head off", " like you're going to blow a fuse"];
+
+// User Location //
 var lat = "";
 var long = "";
-var acceptButton = $("#accept-button");
+
+// Weather Globals //
+var currentIcon = "";
+var currentTemp = "";
+var currentFeels = "";
+var currentWeather = "";
+var currentWeatherDescription = "";
 
 
+// Hides buttons
 function hideBtns() {
     $("#y-btn").hide();
     $("#x-btn").hide();
@@ -24,6 +37,9 @@ function hideBtns() {
     $("#hidden-div").append(matchText);
 
 };
+
+
+// Gets the user location //
 function getLocation() {
 
     if (navigator.geolocation) {
@@ -39,8 +55,6 @@ function setLocation(location) {
 
     lat = location.coords.latitude;
     long = location.coords.longitude;
-    console.log("lat " + lat);
-    console.log("lon " + long);
     openWeatherResources(lat, long);
 
 
@@ -48,6 +62,7 @@ function setLocation(location) {
 };
 
 
+// On click Emotion Algorithm
 $(emotionChoice).on("click", function moodToFood(selectedEmotion) {
 
     if (lat === "" && long === "") {
@@ -59,7 +74,6 @@ $(emotionChoice).on("click", function moodToFood(selectedEmotion) {
 
         choiceReasonFeelingBlurb = [];
         var emotionChosen = $(this).attr("data-name");
-        console.log(emotionChosen);
         if (emotionChosen === "sad") {
             var randomSadReasonChoice = sadReasonings[Math.floor(Math.random() * sadReasonings.length)];
             choiceReasonFeelingBlurb.push(randomSadReasonChoice);
@@ -109,15 +123,21 @@ $(emotionChoice).on("click", function moodToFood(selectedEmotion) {
 
 });
 
+
+// Show the cards and buttons //
 function showCardandBtns() {
     $("#restaurant-card").show();
     $(".btn-wrapper").show();
 };
 
+
+// Hide the emotion dropdown //
 function hideDropDown() {
     $("#dropdown-wrapper").hide();
 };
 
+
+// Zomato Geo Location URL //
 function zomatoGeoResources(lat, long) {
     
     var searchURL = "https://developers.zomato.com/api/v2.1/geocode?lat=" + lat + "&lon=" + long
@@ -131,8 +151,6 @@ function zomatoGeoResources(lat, long) {
     
     }).then(function (response) {
 
-        console.log(response);
-
         var cityType = response.location.entity_type;
         var cityID = response.location.entity_id;
         var resultAmount = 20;
@@ -145,6 +163,7 @@ function zomatoGeoResources(lat, long) {
 }
 
 
+// Zomato Search URL //
 function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAmount, lat, long) {
 
     $.ajax({
@@ -184,6 +203,8 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
 
 };
 
+
+// Open Weather Location URL //
 function openWeatherResources(lat, long) {
 
     var apiKey = "61884189ea401251c54c2d436ff4118c"
@@ -191,18 +212,24 @@ function openWeatherResources(lat, long) {
 
     $.ajax({ url: queryURL, method: "GET" }).then(function (result) {
 
-        var currentIcon = result.weather[0].icon
+        currentIcon = result.weather[0].icon;
+        currentTemp = ((result.main.temp - 273.15) * 1.8 + 32).toFixed(1);
+        currentFeels = ((result.main.feels_like - 273.15) * 1.8 + 32).toFixed(1);
+        currentWeather = result.weather[0].main;
+        currentWeatherDescription = result.weather[0].description;
+
 
         $(".logo-img").attr("src", "https://openweathermap.org/img/wn/" + currentIcon + "@2x.png")
         $(".logo-img").show();
 
+        $(".feels-like").html("Feels like: " + currentFeels + " &deg;F")
 
     });
 
 };
 
 
-
+// Creates cards dynamically
 function cardCreate(searchResponse) {
 
     resultsCardContainer.empty();
@@ -245,6 +272,7 @@ function cardCreate(searchResponse) {
 };
 
 
+// Accept Modal
 function modalContent(){
 
     var matchText = $("<p>")
@@ -257,23 +285,20 @@ function modalContent(){
 
 };
 
-    
-// Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks on <span> (x), close the modal
 $(span).on("click", function() {
     $("#hidden-div").empty();
     $("#myModal").hide();
 
 })
 
-// When the user clicks anywhere outside of the modal, close it
 $("#myModal").on("click", function() {
     $("#hidden-div").empty();
     $("#myModal").hide();
 
 });
+
 
 // Run Functions
 getLocation();
