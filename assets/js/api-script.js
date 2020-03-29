@@ -251,23 +251,23 @@ function cardCreate(searchResponse) {
     var cuisineTypeString = JSON.stringify(firstCuisine).toLowerCase();
     var cuisineType = JSON.parse(cuisineTypeString);
     var imageSource = featuredImage[cuisineType];
-    var cardImage = $("<img>").attr("src", imageSource).attr("class", "activator");
+    var cardImage = $("<img>").attr("src", imageSource);
 
     // Checkmark button
     var checkmark = $("<i>").attr("class","material-icon").html("✓");
     var checkmarkLink = $("<a>").attr("class", "btn-floating halfway-fab waves-effect waves-light red activator").append(checkmark);
-    var cardTitle = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.name).attr("class", "card-title");
+    var cardTitle = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.name).attr("class", "card-title grey-text text-darken-4");
     
     // Card front title & photo
-    var cardImageDiv = $("<div>").attr("class", "card-image").append(cardImage, cardTitle,checkmarkLink);
+    var cardImageDiv = $("<div>").attr("class", "card-image").append(checkmarkLink, cardImage);
 
     // Card front info
     var cardInfo = $("<p>").text(restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
     var reccomendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasonFeelingBlurb[0] + "!");
-    var cardContentFront = $("<div>").attr("class", "card-content").append(cardInfo, reccomendationReason);
+    var cardContentFront = $("<div>").attr("class", "card-content").append(cardTitle, cardInfo, reccomendationReason);
     var websiteInfo = $("<a>").text("Learn more").attr("href", restaurantsArray[randomRestaurantChoice].restaurant.url).attr("target", "_blank");
     var learnMore = $("<div>").attr("class", "card-action").append(websiteInfo);
-    var cardFront = $("<div>").attr("class", "card large");
+    var cardFront = $("<div>").attr("class", "card");
 
     // Card reveal info
     var collapseIcon = $("<i>").attr("class", "material-icons right").html("X");
