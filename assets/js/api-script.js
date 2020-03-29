@@ -232,47 +232,26 @@ function openWeatherResources(lat, long) {
 // Creates cards dynamically
 function cardCreate(searchResponse) {
 
-
-    // EXAMPLE SPLIT
-    //     var firstWords = [];
-    // for (var i=0;i<codelines.length;i++)
-    // {
-    //   var codeLine = codelines[i];
-    //   var firstWord = codeLine.substr(0, codeLine.indexOf(" "));
-    //   firstWords.push(firstWord);
-    // }
     resultsCardContainer.empty();
 
     var restaurantsArray = searchResponse.restaurants
     var randomRestaurantChoice = Math.floor(Math.random() * restaurantsArray.length);
     console.log(randomRestaurantChoice)
 
-// push first word into first cuisine array
+    // Grabs featured image from featured image object library
     var firstCuisine = [];
     var cuisineLines = restaurantsArray[randomRestaurantChoice].restaurant.cuisines;
-    console.log("cuisine lines: " + cuisineLines)
-
-    var firstCuisineLineWord = cuisineLines.substr(0, cuisineLines.indexOf(","));
-    console.log(firstCuisineLineWord);
-
-    firstCuisine.push(firstCuisineLineWord);
-    console.log(firstCuisine);
-
-    console.log("first cuisine: " + firstCuisine);
-
-
+    if (cuisineLines.indexOf(",") !== -1) {
+        var firstCuisineLineWord = cuisineLines.substr(0, cuisineLines.indexOf(","));
+        firstCuisine.push(firstCuisineLineWord);
+    }
+    else {
+        firstCuisine.push(cuisineLines);
+    }
     var cuisineTypeString = JSON.stringify(firstCuisine).toLowerCase();
-    console.log("Stringified: " + cuisineTypeString)
     var cuisineType = JSON.parse(cuisineTypeString);
-    console.log("Cuisine Type: " + cuisineType);
-
     var imageSource = featuredImage[cuisineType];
-    console.log("Image Source: " + imageSource)
-
-
     var cardImage = $("<img>").attr("src", imageSource).attr("class", "activator");
-    console.log("Card Image: " + cardImage);
-    // var cardImage = $("<img>").attr("src", restaurantsArray[randomRestaurantChoice].restaurant.featured_image).attr("class","activator");
 
     // Card front title & photo
     var cardImageDiv = $("<div>").attr("class", "card-image").append(cardImage);
@@ -341,105 +320,105 @@ var featuredImage = {
     bbq: "assets/images/food-images/bbq.jpg",
     bagels: "assets/images/food-images/bagels.jpg",
     bakery: "assets/images/food-images/bakery.jpg",
-    bar: "assets/images/food-images/bar.jpg",
-    food: "assets/images/food-images/food.jpg",
-    belgian: "assets/images/belgian.jpg",
-    beverages: "assets/images/beverages.jpg",
-    brazilian: "assets/images/brazilian.jpg",
-    breakfast: "assets/images/breakfast.jpg",
-    british: "assets/images/british.jpg",
-    bubble_tea: "assets/images/bubble_tea.jpeg",
-    burger: "assets/images/burger.jpg",
-    burmese: "assets/images/burmese.jpg",
-    cafe: "assets/images/cafe.jpg",
-    cajun: "assets/images/cajun.jpeg",
-    california: "assets/images/california.jpeg",
-    cambodian: "assets/images/cambodian.jpg",
-    canadian: "assets/images/canadian.jpg",
-    cantonese: "assets/images/cantonese.jpeg",
-    caribbean: "assets/images/caribbean.webp",
-    chili: "assets/images/chili.jpg",
+    "bar food": "assets/images/food-images/bar.jpg",
+    belgian: "assets/images/food-images/belgian.jpg",
+    beverages: "assets/images/food-images/beverages.jpg",
+    brazilian: "assets/images/food-images/brazilian.jpg",
+    breakfast: "assets/images/food-images/breakfast.jpg",
+    british: "assets/images/food-images/british.jpg",
+    "bubble tea": "assets/images/food-images/bubble_tea.jpeg",
+    burger: "assets/images/food-images/burger.jpg",
+    burmese: "assets/images/food-images/burmese.jpg",
+    cafe: "assets/images/food-images/cafe.jpg",
+    cajun: "assets/images/food-images/cajun.jpeg",
+    california: "assets/images/food-images/california.jpeg",
+    cambodian: "assets/images/food-images/cambodian.jpg",
+    canadian: "assets/images/food-images/canadian.jpg",
+    cantonese: "assets/images/food-images/cantonese.jpeg",
+    caribbean: "assets/images/food-images/caribbean.webp",
+    chili: "assets/images/food-images/chili.jpg",
     chinese: "assets/images/food-images/chinese.jpeg",
-    coffee_and_tea: "assets/images/coffee_and_tea.jpeg",
-    colombian: "assets/images/colombian.jpg",
-    creole: "assets/images/creole.jpeg",
-    crepes: "assets/images/crepes.jpeg",
-    cuban: "assets/images/cuban.jpeg",
-    deli: "assets/images/deli.jpeg",
-    desserts: "assets/images/desserts.jpeg",
-    dim_sum: "assets/images/dim_sum.jpeg",
-    diner: "assets/images/diner.jpeg",
-    dominican: "assets/images/dominican.jpeg",
-    donuts: "assets/images/donuts.jpeg",
-    drinks_only: "assets/images/drinks_only.jpeg",
-    eastern_european: "assets/images/eastern_european.jpeg",
-    ethiopian: "assets/images/ethiopian.jpg",
-    european: "assets/images/european.jpeg",
-    "fast food":"assets/images/fast_food.jpeg",
-    filipino: "assets/images/filipino.jpeg",
-    french: "assets/images/french.jpg",
-    frozen_yogurt: "assets/images/frozen_yogurt.jpeg",
-    fusion: "assets/images/fusion.jpg",
-    german: "assets/images/german.jpg",
-    greek: "assets/images/greek.jpeg",
-    grill: "assets/images/grill.jpg",
-    hawaiian: "assets/images/hawaiian.jpeg",
-    healthy_food: "assets/images/healthy_food.jpeg",
-    ice_cream: "assets/images/ice_cream.jpeg",
-    indian: "assets/images/indian.jpeg",
-    international: "assets/images/international.jpg",
-    iranian: "assets/images/iranian.jpeg",
-    irish: "assets/images/irish.jpg",
-    israeli: "assets/images/israeli.jpg",
-    italian: "assets/images/italian.jpeg",
-    jamaican: "assets/images/jamaican.webp",
-    japanese: "assets/images/japanese.jpg",
-    jewish: "assets/images/jewish.jpg",
-    juices: "assets/images/juices.jpeg",
-    kebab: "assets/images/kebab.jpg",
-    korean: "assets/images/korean.jpeg",
-    laotian: "assets/images/laotian.jpg",
-    latin_american: "assets/images/latin_american.png",
-    lebanese: "assets/images/lebanese.jpeg",
-    mediterranean: "assets/images/mediterranean.jpg",
-    mexican: "assets/images/mexican.jpg",
-    middle_eastern: "assets/images/middle_eastern.jpeg",
-    mongolian: "assets/images/mongolian.jpg",
-    moroccan: "assets/images/moroccan.jpeg",
-    nepalese: "assets/images/nepalese.png",
-    new_american: "assets/images/new_american.jpg",
-    new_mexican: "assets/images/new_mexican.jpg",
-    pacific: "assets/images/pacific.jpeg",
-    pakistani: "assets/images/pakistani.jpg",
-    patisserie: "assets/images/patisserie.jpg",
-    peruvian: "assets/images/peruvian.jpeg",
-    pizza: "assets/images/pizza.jpeg",
-    pub_food: "assets/images/pub_food.jpeg",
-    puerto_rican: "assets/images/puerto_rican.jpeg",
-    ramen: "assets/images/ramen.jpg",
-    russian: "assets/images/russian.jpg",
-    salad: "assets/images/salad.jpeg",
-    salvadorean: "assets/images/salvadorean.jpg",
-    sandwich: "assets/images/sandwich.jpeg",
-    scottish: "assets/images/scottish.jpeg",
-    seafood: "assets/images/seafood.jpeg",
-    soul_food: "assets/images/soul_food.jpg",
-    south_african: "assets/images/south_african.jpg",
-    southern: "assets/images/southern.jpg",
-    southwestern: "assets/images/southwestern.jpeg",
-    spanish: "assets/images/spanish.jpeg",
-    steak: "assets/images/steak.jpeg",
-    sushi: "assets/images/sushi.jpeg",
-    taco: "assets/images/taco.jpeg",
-    taiwanese: "assets/images/taiwanese.jpg",
-    tapas: "assets/images/tapas.jpeg",
-    tea: "assets/images/tea.jpeg",
-    teriyaki: "assets/images/teriyaki.jpg",
-    tex_mex: "assets/images/tex-mex.jpg",
+    "coffee and tea": "assets/images/food-images/coffee_and_tea.jpeg",
+    colombian: "assets/images/food-images/colombian.jpg",
+    creole: "assets/images/food-images/creole.jpeg",
+    crepes: "assets/images/food-images/crepes.jpeg",
+    cuban: "assets/images/food-images/cuban.jpeg",
+    deli: "assets/images/food-images/deli.jpeg",
+    desserts: "assets/images/food-images/desserts.jpeg",
+    "dim sum": "assets/images/food-images/dim_sum.jpeg",
+    diner: "assets/images/food-images/diner.jpeg",
+    dominican: "assets/images/food-images/dominican.jpeg",
+    donuts: "assets/images/food-images/donuts.jpeg",
+    "drinks only": "assets/images/food-images/drinks_only.jpeg",
+    "eastern european": "assets/images/food-images/eastern_european.jpeg",
+    ethiopian: "assets/images/food-images/ethiopian.jpg",
+    european: "assets/images/food-images/european.jpeg",
+    "fast food": "assets/images/food-images/fast_food.jpg",
+    filipino: "assets/images/food-images/filipino.jpeg",
+    french: "assets/images/food-images/french.jpg",
+    "frozen yogurt": "assets/images/food-images/frozen_yogurt.jpeg",
+    fusion: "assets/images/food-images/fusion.jpg",
+    german: "assets/images/food-images/german.jpg",
+    greek: "assets/images/food-images/greek.jpeg",
+    grill: "assets/images/food-images/grill.jpg",
+    hawaiian: "assets/images/food-images/hawaiian.jpeg",
+    "healthy food": "assets/images/food-images/healthy_food.jpeg",
+    "ice cream": "assets/images/food-images/ice_cream.jpeg",
+    indian: "assets/images/food-images/indian.jpeg",
+    international: "assets/images/food-images/international.jpg",
+    iranian: "assets/images/food-images/iranian.jpeg",
+    irish: "assets/images/food-images/irish.jpg",
+    israeli: "assets/images/food-images/israeli.jpg",
+    italian: "assets/images/food-images/italian.jpeg",
+    jamaican: "assets/images/food-images/jamaican.webp",
+    japanese: "assets/images/food-images/japanese.jpg",
+    jewish: "assets/images/food-images/jewish.jpg",
+    juices: "assets/images/food-images/juices.jpeg",
+    kebab: "assets/images/food-images/kebab.jpg",
+    korean: "assets/images/food-images/korean.jpeg",
+    laotian: "assets/images/food-images/laotian.jpg",
+    "latin american": "assets/images/food-images/latin_american.png",
+    lebanese: "assets/images/food-images/lebanese.jpeg",
+    mediterranean: "assets/images/food-images/mediterranean.jpg",
+    mexican: "assets/images/food-images/mexican.jpg",
+    "middle eastern": "assets/images/food-images/middle_eastern.jpeg",
+    mongolian: "assets/images/food-images/mongolian.jpg",
+    moroccan: "assets/images/food-images/moroccan.jpeg",
+    nepalese: "assets/images/food-images/nepalese.png",
+    "new american": "assets/images/food-images/new_american.jpg",
+    "new mexican": "assets/images/food-images/new_mexican.jpg",
+    pacific: "assets/images/food-images/pacific.jpeg",
+    pakistani: "assets/images/food-images/pakistani.jpg",
+    patisserie: "assets/images/food-images/patisserie.jpg",
+    peruvian: "assets/images/food-images/peruvian.jpeg",
+    pizza: "assets/images/food-images/pizza.jpeg",
+    "pub food": "assets/images/food-images/pub_food.jpeg",
+    "puerto rican": "assets/images/food-images/puerto_rican.jpeg",
+    ramen: "assets/images/food-images/ramen.jpg",
+    russian: "assets/images/food-images/russian.jpg",
+    salad: "assets/images/food-images/salad.jpeg",
+    salvadorean: "assets/images/food-images/salvadorean.jpg",
+    sandwich: "assets/images/food-images/sandwich.jpeg",
+    scottish: "assets/images/food-images/scottish.jpeg",
+    seafood: "assets/images/food-images/seafood.jpeg",
+    "soul food": "assets/images/food-images/soul_food.jpg",
+    "south african": "assets/images/food-images/south_african.jpg",
+    southern: "assets/images/food-images/southern.jpg",
+    southwestern: "assets/images/food-images/southwestern.jpeg",
+    spanish: "assets/images/food-images/spanish.jpeg",
+    steak: "assets/images/food-images/steak.jpeg",
+    sushi: "assets/images/food-images/sushi.jpeg",
+    taco: "assets/images/food-images/taco.jpeg",
+    taiwanese: "assets/images/food-images/taiwanese.jpg",
+    tapas: "assets/images/food-images/tapas.jpeg",
+    tea: "assets/images/food-images/tea.jpeg",
+    teriyaki: "assets/images/food-images/teriyaki.jpg",
+    "tex-mex": "assets/images/food-images/tex-mex.jpg",
     thai: "assets/images/food-images/thai.jpeg",
-    turkish: "assets/images/turkish.jpeg",
-    vegetarian: "assets/images/vegetarian.jpeg",
-    vietnamese: "assets/images/vietnamese.jpg"
+    turkish: "assets/images/food-images/turkish.jpeg",
+    vegetarian: "assets/images/food-images/vegetarian.jpeg",
+    vietnamese: "assets/images/food-images/vietnamese.jpg",
+    "": "assets/images/food-images/food.jpg"
 };
 
 // Run Functions
