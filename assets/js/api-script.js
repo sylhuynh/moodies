@@ -188,6 +188,11 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
         $("#no-button").on("click", function () {
 
             cardCreate(searchResponse);
+            $("#accept-button").on("click", function () {
+    
+                modalContent();
+    
+            });
 
         });
 
@@ -251,20 +256,27 @@ function cardCreate(searchResponse) {
     var cuisineTypeString = JSON.stringify(firstCuisine).toLowerCase();
     var cuisineType = JSON.parse(cuisineTypeString);
     var imageSource = featuredImage[cuisineType];
-    var cardImage = $("<img>").attr("src", imageSource).attr("class", "activator");
+    var cardImage = $("<img>").attr("src", imageSource).attr("id","featured-image");
 
+    // Checkmark button
+    var checkmark = $("<i>").attr("class","material-icon").html("✓");
+    var acceptButton = $("<a>").attr("class", "btn-floating halfway-fab waves-effect waves-light green activator").attr("id","accept-button").append(checkmark);
+    
+    // // X button
+    var xIcon = $("<i>").attr("class","material-icon").attr("id","no-button").html("✗");
+    var xButton = $("<a>").attr("class", "btn-floating halfway-fab waves-effect waves-light red left").attr("id","x-button").append(xIcon);
+    
     // Card front title & photo
-    var cardImageDiv = $("<div>").attr("class", "card-image").append(cardImage);
+    var cardTitle = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.name).attr("class", "card-title grey-text text-darken-4");
+    var cardImageDiv = $("<div>").attr("class", "card-image").append(xButton, acceptButton, cardImage);
 
     // Card front info
-    var expandIcon = $("<i>").attr("class", "material-icons right").html("...");
-    var cardTitle = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.name).attr("class", "card-title activator grey-text text-darken-4").append(expandIcon);
     var cardInfo = $("<p>").text(restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
     var reccomendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasonFeelingBlurb[0] + "!");
     var cardContentFront = $("<div>").attr("class", "card-content").append(cardTitle, cardInfo, reccomendationReason);
     var websiteInfo = $("<a>").text("Learn more").attr("href", restaurantsArray[randomRestaurantChoice].restaurant.url).attr("target", "_blank");
     var learnMore = $("<div>").attr("class", "card-action").append(websiteInfo);
-    var cardFront = $("<div>").attr("class", "card large");
+    var cardFront = $("<div>").attr("class", "card");
 
     // Card reveal info
     var collapseIcon = $("<i>").attr("class", "material-icons right").html("X");
