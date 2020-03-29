@@ -139,7 +139,7 @@ function hideDropDown() {
 
 // Zomato Geo Location URL //
 function zomatoGeoResources(lat, long) {
-    
+
     var searchURL = "https://developers.zomato.com/api/v2.1/geocode?lat=" + lat + "&lon=" + long
     $.ajax({
         url: searchURL,
@@ -148,7 +148,7 @@ function zomatoGeoResources(lat, long) {
             'Accept': 'application/json'
         },
         type: "GET"
-    
+
     }).then(function (response) {
 
         var cityType = response.location.entity_type;
@@ -174,7 +174,7 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
         },
         type: "GET"
     }).then(function (searchResponse) {
-console.log(searchResponse);
+        console.log(searchResponse);
         $("#card-restaurant-row").show();
 
         var searchResponse = searchResponse;
@@ -197,7 +197,7 @@ console.log(searchResponse);
 
         });
 
-        
+
 
     });
 
@@ -232,26 +232,53 @@ function openWeatherResources(lat, long) {
 // Creates cards dynamically
 function cardCreate(searchResponse) {
 
+
+    // EXAMPLE SPLIT
+    //     var firstWords = [];
+    // for (var i=0;i<codelines.length;i++)
+    // {
+    //   var codeLine = codelines[i];
+    //   var firstWord = codeLine.substr(0, codeLine.indexOf(" "));
+    //   firstWords.push(firstWord);
+    // }
     resultsCardContainer.empty();
 
     var restaurantsArray = searchResponse.restaurants
     var randomRestaurantChoice = Math.floor(Math.random() * restaurantsArray.length);
-    var firstCuisine = restaurantsArray[randomRestaurantChoice].restaurant.cuisines;
-    console.log("first cuisine: "+firstCuisine);
+    console.log(randomRestaurantChoice)
+
+// push first word into first cuisine array
+    var firstCuisine = [];
+    var cuisineLines = restaurantsArray[randomRestaurantChoice].restaurant.cuisines;
+    console.log("cuisine lines: " + cuisineLines)
+
+    var firstCuisineLineWord = cuisineLines.substr(0, cuisineLines.indexOf(","));
+    console.log(firstCuisineLineWord);
+
+    firstCuisine.push(firstCuisineLineWord);
+    console.log(firstCuisine);
+
+    console.log("first cuisine: " + firstCuisine);
+
+
     var cuisineTypeString = JSON.stringify(firstCuisine).toLowerCase();
+    console.log("Stringified: " + cuisineTypeString)
     var cuisineType = JSON.parse(cuisineTypeString);
     console.log("Cuisine Type: " + cuisineType);
-    var featuredImageString = JSON.stringify(featuredImage.cuisineType);
-    var featuredImageParse = JSON.parse(featuredImageString);
-    var cardImage = $("<img>").attr("src", featuredImageParse).attr("class","activator");
-    console.log("Card Image: "+cardImage);
+
+    var imageSource = featuredImage[cuisineType];
+    console.log("Image Source: " + imageSource)
+
+
+    var cardImage = $("<img>").attr("src", imageSource).attr("class", "activator");
+    console.log("Card Image: " + cardImage);
     // var cardImage = $("<img>").attr("src", restaurantsArray[randomRestaurantChoice].restaurant.featured_image).attr("class","activator");
 
     // Card front title & photo
     var cardImageDiv = $("<div>").attr("class", "card-image").append(cardImage);
-    
+
     // Card front info
-    var expandIcon = $("<i>").attr("class","material-icons right").html("...");
+    var expandIcon = $("<i>").attr("class", "material-icons right").html("...");
     var cardTitle = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.name).attr("class", "card-title activator grey-text text-darken-4").append(expandIcon);
     var cardInfo = $("<p>").text(restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
     var reccomendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasonFeelingBlurb[0] + "!");
@@ -259,30 +286,30 @@ function cardCreate(searchResponse) {
     var websiteInfo = $("<a>").text("Learn more").attr("href", restaurantsArray[randomRestaurantChoice].restaurant.url).attr("target", "_blank");
     var learnMore = $("<div>").attr("class", "card-action").append(websiteInfo);
     var cardFront = $("<div>").attr("class", "card large");
-    
+
     // Card reveal info
-    var collapseIcon = $("<i>").attr("class","material-icons right").html("X");
+    var collapseIcon = $("<i>").attr("class", "material-icons right").html("X");
     var cardRevealTitle = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.name).attr("class", "card-title grey-text text-darken-4").append(collapseIcon);
     var restaurantInfo = $("<p>").html("Give them a call: " + "<br>" + restaurantsArray[randomRestaurantChoice].restaurant.phone_numbers + "<br><br>" + "Address: " + "<br>" + restaurantsArray[randomRestaurantChoice].restaurant.location.address);
     var cardContentBack = $("<div>").attr("class", "card-content").append(restaurantInfo);
     var cardReveal = $("<div>").attr("class", "card-reveal");
 
-    cardReveal.append(cardRevealTitle,cardContentBack);
+    cardReveal.append(cardRevealTitle, cardContentBack);
     cardFront.append(cardImageDiv, cardContentFront, learnMore, cardReveal);
 
 
-   $("#restaurant-card").append(cardFront);
+    $("#restaurant-card").append(cardFront);
 
 };
 
 
 // Accept Modal
-function modalContent(){
+function modalContent() {
 
     var matchText = $("<p>")
 
     matchText.text("IT'S A MATCH!");
-    
+
     $("#hidden-div").append(matchText);
 
     $("#myModal").show();
@@ -291,13 +318,13 @@ function modalContent(){
 
 var span = document.getElementsByClassName("close")[0];
 
-$(span).on("click", function() {
+$(span).on("click", function () {
     $("#hidden-div").empty();
     $("#myModal").hide();
 
 })
 
-$("#myModal").on("click", function() {
+$("#myModal").on("click", function () {
     $("#hidden-div").empty();
     $("#myModal").hide();
 
@@ -305,113 +332,114 @@ $("#myModal").on("click", function() {
 
 // Featured image library
 var featuredImage = {
-    afghan:"assets/images/afghan.jpg",
-    african:"assets/images/african.jpg",
-    american:"assets/images/american.jpg",
-    argentine:"assets/images/argentine.jpg",
-    armenian:"assets/images/armenian.jpg",
-    asian:"assets/images/asian.jpg",
-    bbq:"assets/images/bbq.jpg",
-    bagels:"assets/images/bagels.jpg",
-    bakery:"assets/images/bakery.jpg",
-    bar:"assets/images/bar.jpg",
-    food:"assets/images/food.jpg",
-    belgian:"assets/images/belgian.jpg",
-    beverages:"assets/images/beverages.jpg",
-    brazilian:"assets/images/brazilian.jpg",
-    breakfast:"assets/images/breakfast.jpg",
-    british:"assets/images/british.jpg",
-    bubble_tea:"assets/images/bubble_tea.jpeg",
-    burger:"assets/images/burger.jpg",
-    burmese:"assets/images/burmese.jpg",
-    cafe:"assets/images/cafe.jpg",
-    cajun:"assets/images/cajun.jpeg",
-    california:"assets/images/california.jpeg",
-    cambodian:"assets/images/cambodian.jpg",
-    canadian:"assets/images/canadian.jpg",
-    cantonese:"assets/images/cantonese.jpeg",
-    caribbean:"assets/images/caribbean.webp",
-    chili:"assets/images/chili.jpg",
-    chinese:"assets/images/chinese.jpeg",
-    coffee_and_tea:"assets/images/coffee_and_tea.jpeg",
-    colombian:"assets/images/colombian.jpg",
-    creole:"assets/images/creole.jpeg",
-    crepes:"assets/images/crepes.jpeg",
-    cuban:"assets/images/cuban.jpeg",
-    deli:"assets/images/deli.jpeg",
-    desserts:"assets/images/desserts.jpeg",
-    dim_sum:"assets/images/dim_sum.jpeg",
-    diner:"assets/images/diner.jpeg",
-    dominican:"assets/images/dominican.jpeg",
-    donuts:"assets/images/donuts.jpeg",
-    drinks_only:"assets/images/drinks_only.jpeg",
-    eastern_european:"assets/images/eastern_european.jpeg",
-    ethiopian:"assets/images/ethiopian.jpg",
-    european:"assets/images/european.jpeg",
-    filipino:"assets/images/filipino.jpeg",
-    french:"assets/images/french.jpg",
-    frozen_yogurt:"assets/images/frozen_yogurt.jpeg",
-    fusion:"assets/images/fusion.jpg",
-    german:"assets/images/german.jpg",
-    greek:"assets/images/greek.jpeg",
-    grill:"assets/images/grill.jpg",
-    hawaiian:"assets/images/hawaiian.jpeg",
-    healthy_food:"assets/images/healthy_food.jpeg",
-    ice_cream:"assets/images/ice_cream.jpeg",
-    indian:"assets/images/indian.jpeg",
-    international:"assets/images/international.jpg",
-    iranian:"assets/images/iranian.jpeg",
-    irish:"assets/images/irish.jpg",
-    israeli:"assets/images/israeli.jpg",
-    italian:"assets/images/italian.jpeg",
-    jamaican:"assets/images/jamaican.webp",
-    japanese:"assets/images/japanese.jpg",
-    jewish:"assets/images/jewish.jpg",
-    juices:"assets/images/juices.jpeg",
-    kebab:"assets/images/kebab.jpg",
-    korean:"assets/images/korean.jpeg",
-    laotian:"assets/images/laotian.jpg",
-    latin_american:"assets/images/latin_american.png",
-    lebanese:"assets/images/lebanese.jpeg",
-    mediterranean:"assets/images/mediterranean.jpg",
-    mexican:"assets/images/mexican.jpg",
-    middle_eastern:"assets/images/middle_eastern.jpeg",
-    mongolian:"assets/images/mongolian.jpg",
-    moroccan:"assets/images/moroccan.jpeg",
-    nepalese:"assets/images/nepalese.png",
-    new_american:"assets/images/new_american.jpg",
-    new_mexican:"assets/images/new_mexican.jpg",
-    pacific:"assets/images/pacific.jpeg",
-    pakistani:"assets/images/pakistani.jpg",
-    patisserie:"assets/images/patisserie.jpg",
-    peruvian:"assets/images/peruvian.jpeg",
-    pizza:"assets/images/pizza.jpeg",
-    pub_food:"assets/images/pub_food.jpeg",
-    puerto_rican:"assets/images/puerto_rican.jpeg",
-    ramen:"assets/images/ramen.jpg",
-    russian:"assets/images/russian.jpg",
-    salad:"assets/images/salad.jpeg",
-    salvadorean:"assets/images/salvadorean.jpg",
-    sandwich:"assets/images/sandwich.jpeg",
-    scottish:"assets/images/scottish.jpeg",
-    seafood:"assets/images/seafood.jpeg",
-    soul_food:"assets/images/soul_food.jpg",
-    south_african:"assets/images/south_african.jpg",
-    southern:"assets/images/southern.jpg",
-    southwestern:"assets/images/southwestern.jpeg",
-    spanish:"assets/images/spanish.jpeg",
-    steak:"assets/images/steak.jpeg",
-    sushi:"assets/images/sushi.jpeg",
-    taco:"assets/images/taco.jpeg",
-    taiwanese:"assets/images/taiwanese.jpg",
-    tapas:"assets/images/tapas.jpeg",
-    tea:"assets/images/tea.jpeg",
-    teriyaki:"assets/images/teriyaki.jpg",
-    tex_mex:"assets/images/tex-mex.jpg",
-    thai:"assets/images/thai.jpeg",
-    turkish:"assets/images/turkish.jpeg",
-    vegetarian:"assets/images/vegetarian.jpeg",
-    vietnamese:"assets/images/vietnamese.jpg"
+    afghan: "assets/images/food-images/afghan.jpg",
+    african: "assets/images/food-images/african.jpg",
+    american: "assets/images/food-images/american.jpg",
+    argentine: "assets/images/food-images/argentine.jpg",
+    armenian: "assets/images/food-images/armenian.jpg",
+    asian: "assets/images/food-images/asian.jpg",
+    bbq: "assets/images/food-images/bbq.jpg",
+    bagels: "assets/images/food-images/bagels.jpg",
+    bakery: "assets/images/food-images/bakery.jpg",
+    bar: "assets/images/food-images/bar.jpg",
+    food: "assets/images/food-images/food.jpg",
+    belgian: "assets/images/belgian.jpg",
+    beverages: "assets/images/beverages.jpg",
+    brazilian: "assets/images/brazilian.jpg",
+    breakfast: "assets/images/breakfast.jpg",
+    british: "assets/images/british.jpg",
+    bubble_tea: "assets/images/bubble_tea.jpeg",
+    burger: "assets/images/burger.jpg",
+    burmese: "assets/images/burmese.jpg",
+    cafe: "assets/images/cafe.jpg",
+    cajun: "assets/images/cajun.jpeg",
+    california: "assets/images/california.jpeg",
+    cambodian: "assets/images/cambodian.jpg",
+    canadian: "assets/images/canadian.jpg",
+    cantonese: "assets/images/cantonese.jpeg",
+    caribbean: "assets/images/caribbean.webp",
+    chili: "assets/images/chili.jpg",
+    chinese: "assets/images/food-images/chinese.jpeg",
+    coffee_and_tea: "assets/images/coffee_and_tea.jpeg",
+    colombian: "assets/images/colombian.jpg",
+    creole: "assets/images/creole.jpeg",
+    crepes: "assets/images/crepes.jpeg",
+    cuban: "assets/images/cuban.jpeg",
+    deli: "assets/images/deli.jpeg",
+    desserts: "assets/images/desserts.jpeg",
+    dim_sum: "assets/images/dim_sum.jpeg",
+    diner: "assets/images/diner.jpeg",
+    dominican: "assets/images/dominican.jpeg",
+    donuts: "assets/images/donuts.jpeg",
+    drinks_only: "assets/images/drinks_only.jpeg",
+    eastern_european: "assets/images/eastern_european.jpeg",
+    ethiopian: "assets/images/ethiopian.jpg",
+    european: "assets/images/european.jpeg",
+    "fast food":"assets/images/fast_food.jpeg",
+    filipino: "assets/images/filipino.jpeg",
+    french: "assets/images/french.jpg",
+    frozen_yogurt: "assets/images/frozen_yogurt.jpeg",
+    fusion: "assets/images/fusion.jpg",
+    german: "assets/images/german.jpg",
+    greek: "assets/images/greek.jpeg",
+    grill: "assets/images/grill.jpg",
+    hawaiian: "assets/images/hawaiian.jpeg",
+    healthy_food: "assets/images/healthy_food.jpeg",
+    ice_cream: "assets/images/ice_cream.jpeg",
+    indian: "assets/images/indian.jpeg",
+    international: "assets/images/international.jpg",
+    iranian: "assets/images/iranian.jpeg",
+    irish: "assets/images/irish.jpg",
+    israeli: "assets/images/israeli.jpg",
+    italian: "assets/images/italian.jpeg",
+    jamaican: "assets/images/jamaican.webp",
+    japanese: "assets/images/japanese.jpg",
+    jewish: "assets/images/jewish.jpg",
+    juices: "assets/images/juices.jpeg",
+    kebab: "assets/images/kebab.jpg",
+    korean: "assets/images/korean.jpeg",
+    laotian: "assets/images/laotian.jpg",
+    latin_american: "assets/images/latin_american.png",
+    lebanese: "assets/images/lebanese.jpeg",
+    mediterranean: "assets/images/mediterranean.jpg",
+    mexican: "assets/images/mexican.jpg",
+    middle_eastern: "assets/images/middle_eastern.jpeg",
+    mongolian: "assets/images/mongolian.jpg",
+    moroccan: "assets/images/moroccan.jpeg",
+    nepalese: "assets/images/nepalese.png",
+    new_american: "assets/images/new_american.jpg",
+    new_mexican: "assets/images/new_mexican.jpg",
+    pacific: "assets/images/pacific.jpeg",
+    pakistani: "assets/images/pakistani.jpg",
+    patisserie: "assets/images/patisserie.jpg",
+    peruvian: "assets/images/peruvian.jpeg",
+    pizza: "assets/images/pizza.jpeg",
+    pub_food: "assets/images/pub_food.jpeg",
+    puerto_rican: "assets/images/puerto_rican.jpeg",
+    ramen: "assets/images/ramen.jpg",
+    russian: "assets/images/russian.jpg",
+    salad: "assets/images/salad.jpeg",
+    salvadorean: "assets/images/salvadorean.jpg",
+    sandwich: "assets/images/sandwich.jpeg",
+    scottish: "assets/images/scottish.jpeg",
+    seafood: "assets/images/seafood.jpeg",
+    soul_food: "assets/images/soul_food.jpg",
+    south_african: "assets/images/south_african.jpg",
+    southern: "assets/images/southern.jpg",
+    southwestern: "assets/images/southwestern.jpeg",
+    spanish: "assets/images/spanish.jpeg",
+    steak: "assets/images/steak.jpeg",
+    sushi: "assets/images/sushi.jpeg",
+    taco: "assets/images/taco.jpeg",
+    taiwanese: "assets/images/taiwanese.jpg",
+    tapas: "assets/images/tapas.jpeg",
+    tea: "assets/images/tea.jpeg",
+    teriyaki: "assets/images/teriyaki.jpg",
+    tex_mex: "assets/images/tex-mex.jpg",
+    thai: "assets/images/food-images/thai.jpeg",
+    turkish: "assets/images/turkish.jpeg",
+    vegetarian: "assets/images/vegetarian.jpeg",
+    vietnamese: "assets/images/vietnamese.jpg"
 };
 
 // Run Functions
