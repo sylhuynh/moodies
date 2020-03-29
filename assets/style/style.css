@@ -19,7 +19,7 @@ body {
 }
 
 #restaurant-card {
-    height: 400px;
+    height: 350px;
     width: 400px;
 }
 
@@ -150,6 +150,13 @@ nav .brand-logo {
     font-size: 50px;
     text-shadow: 2px 2px rgb(123, 136, 110);
 }
+
+/* Featured Image */
+#featured-image{
+max-height: 200px;
+max-width: 100%;
+}
+
 
 /* Footer */
 .page-footer {

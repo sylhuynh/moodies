@@ -251,15 +251,19 @@ function cardCreate(searchResponse) {
     var cuisineTypeString = JSON.stringify(firstCuisine).toLowerCase();
     var cuisineType = JSON.parse(cuisineTypeString);
     var imageSource = featuredImage[cuisineType];
-    var cardImage = $("<img>").attr("src", imageSource);
+    var cardImage = $("<img>").attr("src", imageSource).attr("id","featured-image");
 
     // Checkmark button
-    var checkmark = $("<i>").attr("class","material-icon").html("✓").attr("id","accept-button");
-    var checkmarkLink = $("<a>").attr("class", "btn-floating halfway-fab waves-effect waves-light red activator").append(checkmark);
-    var cardTitle = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.name).attr("class", "card-title grey-text text-darken-4");
+    var checkmark = $("<i>").attr("class","material-icon").html("✓");
+    var acceptButton = $("<a>").attr("class", "btn-floating halfway-fab waves-effect waves-light green activator").attr("id","accept-button").append(checkmark);
+    
+    // // X button
+    // var xIcon = $("<i>").attr("class","material-icon").attr("id","no-button").html("✗");
+    // var xButton = $("<a>").attr("class", "btn-floating halfway-fab waves-effect waves-light red left").attr("id","x-button").append(xIcon);
     
     // Card front title & photo
-    var cardImageDiv = $("<div>").attr("class", "card-image").append(checkmarkLink, cardImage);
+    var cardTitle = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.name).attr("class", "card-title grey-text text-darken-4");
+    var cardImageDiv = $("<div>").attr("class", "card-image").append(acceptButton, cardImage);
 
     // Card front info
     var cardInfo = $("<p>").text(restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
