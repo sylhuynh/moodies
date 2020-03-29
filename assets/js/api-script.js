@@ -188,6 +188,11 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
         $("#no-button").on("click", function () {
 
             cardCreate(searchResponse);
+            $("#accept-button").on("click", function () {
+    
+                modalContent();
+    
+            });
 
         });
 
@@ -258,12 +263,12 @@ function cardCreate(searchResponse) {
     var acceptButton = $("<a>").attr("class", "btn-floating halfway-fab waves-effect waves-light green activator").attr("id","accept-button").append(checkmark);
     
     // // X button
-    // var xIcon = $("<i>").attr("class","material-icon").attr("id","no-button").html("✗");
-    // var xButton = $("<a>").attr("class", "btn-floating halfway-fab waves-effect waves-light red left").attr("id","x-button").append(xIcon);
+    var xIcon = $("<i>").attr("class","material-icon").attr("id","no-button").html("✗");
+    var xButton = $("<a>").attr("class", "btn-floating halfway-fab waves-effect waves-light red left").attr("id","x-button").append(xIcon);
     
     // Card front title & photo
     var cardTitle = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.name).attr("class", "card-title grey-text text-darken-4");
-    var cardImageDiv = $("<div>").attr("class", "card-image").append(acceptButton, cardImage);
+    var cardImageDiv = $("<div>").attr("class", "card-image").append(xButton, acceptButton, cardImage);
 
     // Card front info
     var cardInfo = $("<p>").text(restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
