@@ -254,7 +254,7 @@ function cardCreate(searchResponse) {
     var cardImage = $("<img>").attr("src", imageSource);
 
     // Checkmark button
-    var checkmark = $("<i>").attr("class","material-icon").html("✓");
+    var checkmark = $("<i>").attr("class","material-icon").html("✓").attr("id","accept-button");
     var checkmarkLink = $("<a>").attr("class", "btn-floating halfway-fab waves-effect waves-light red activator").append(checkmark);
     var cardTitle = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.name).attr("class", "card-title grey-text text-darken-4");
     
