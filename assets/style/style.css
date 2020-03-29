@@ -2,7 +2,6 @@ body {
     min-height: 100vh;
     background-color: rgb(245, 245, 245);
     background-image: url("../images/test-background.png");
-    /* background-repeat: no-repeat; */
     background-position: center;
     background-size: contain;
     display: flex;
@@ -14,15 +13,12 @@ body {
     background-color: #FAEBD7;
 }
 
-#feels-like {
-}
-
 .card-image {
     opacity: 88%;
 
 }
 
-#restaurant-card{
+#restaurant-card {
     height: 500px;
 }
 
@@ -43,11 +39,16 @@ nav .brand-logo {
     font-family: 'Sen', sans-serif;
 }
 
+.feels-like {
+    padding-left: 32px;
+}
+
 /* Jumbotron */
 #jumbotron-title {
     font-size: 60px !important;
     font-weight: bold !important;
     margin-bottom: 400px;
+    font-family: 'Sen', sans-serif;
 }
 
 #hero-container {
@@ -69,6 +70,10 @@ nav .brand-logo {
     padding-top: 10px;
     text-align: center;
     font-size: x-large;
+}
+
+#emotion-dropdown, #mood-dropdown {
+    font-family: 'Sen', sans-serif;
 }
 
 .modal {
@@ -136,10 +141,6 @@ nav .brand-logo {
     padding: 2px 16px;
     background-color: #5cb85c;
     color: white;
-}
-
-#emotion-dropdown, #mood-dropdown {
-    font-family: 'Sen', sans-serif;
 }
 
 #hidden-div {
