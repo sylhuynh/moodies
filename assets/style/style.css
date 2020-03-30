@@ -213,6 +213,11 @@ max-width: 100%;
         height: 40%;
     }
 
+    #restaurant-card {
+        height: 350px;
+        width: 100%;
+    }
+
     #jumbotron-title {
         font-size: x-large !important;
         margin-bottom: 1%;
@@ -230,12 +235,22 @@ max-width: 100%;
         text-align: center;
         font-weight: bold !important;
     }  
+
+    #restaurant-card {
+        height: 350px;
+        width: 100%;
+    }
 }
 
 @media (min-width:700px){    
     #hero-container {
         margin: auto ;
         width: 700px;
+    }
+
+    #restaurant-card {
+        height: 350px;
+        width: 400px;
     }
 
     #jumbotron-title {
