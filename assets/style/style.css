@@ -18,10 +18,7 @@ body {
 
 }
 
-#restaurant-card {
-    height: 350px;
-    width: 400px;
-}
+
 
 .logo-img {
     width: 50px;
@@ -77,9 +74,18 @@ nav .brand-logo {
     font-family: 'Sen', sans-serif;
 }
 
+#card-restaurant-row{
+    margin-bottom: 100px;
+}
+
+#restaurant-card {
+    height: 350px;
+    width: 400px;
+}
+
 .modal {
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 5; /* Sit on top */
     padding-top: 100px; /* Location of the box */
     left: 0;
     top: 0;
@@ -243,6 +249,7 @@ max-width: 100%;
     #restaurant-card {
         height: 350px;
         width: 100%;
+
     }
 }
 
@@ -255,6 +262,7 @@ max-width: 100%;
     #restaurant-card {
         height: 350px;
         width: 400px;
+
     }
 
     #jumbotron-title {

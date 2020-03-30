@@ -11,6 +11,7 @@ var choiceReasonFeelingBlurb = [];
 var sadReasonings = [" down on your luck", " not up to par", " like you need a pick-me-up", " down", " out of sorts", " not so hot", " blue", " in the dumps", " a bummer", " out of sorts", " sad", " sad dog"];
 var happyReasonings = [" happy", " chipper", " like everything's going your way", " like you're on cloud nine", " over the moon", " happy as a clam", " tickled pink", " on top of the world", " like you're walking on air", " like a dog with two tails", " you're grinning from ear to ear", " like a happy camper"];
 var angryReasonings = [" angry", " like you've been driven up the wall", " like you've had it up to here", " like you've taken all you can take", " fed up", " things are getting on your nerves", " tilted", " salty", " your hands clenching", " like you're turning red", " like biting someone's head off", " like you're going to blow a fuse"];
+var searchObject = "";
 
 // User Location //
 var lat = "";
@@ -127,7 +128,6 @@ $(emotionChoice).on("click", function moodToFood(selectedEmotion) {
 // Show the cards and buttons //
 function showCardandBtns() {
     $("#restaurant-card").show();
-    $(".btn-wrapper").show();
 };
 
 
@@ -174,32 +174,15 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
         },
         type: "GET"
     }).then(function (searchResponse) {
-        console.log(searchResponse);
         $("#card-restaurant-row").show();
 
-        var searchResponse = searchResponse;
+        searchObject = searchResponse;
 
         $("#spinner").hide();
 
-        cardCreate(searchResponse);
+        cardCreate(searchObject);
         showCardandBtns();
-
-
-        $(".no-button").on("click", function () {
-            cardCreate(searchResponse);
-            $("#accept-button").on("click", function () {
-
-                modalContent();
-
-            });
-        });
-
-        $("#accept-button").on("click", function () {
-
-            modalContent();
-
-        });
-
+    
 
 
     });
@@ -239,7 +222,6 @@ function cardCreate(searchResponse) {
 
     var restaurantsArray = searchResponse.restaurants
     var randomRestaurantChoice = Math.floor(Math.random() * restaurantsArray.length);
-    console.log(randomRestaurantChoice)
 
     // Grabs featured image from featured image object library
     var firstCuisine = [];
@@ -261,8 +243,8 @@ function cardCreate(searchResponse) {
     var acceptButton = $("<a>").attr("class", "btn-floating halfway-fab waves-effect waves-light green activator").attr("id", "accept-button").append(checkmark);
 
     // // X button
-    var xIcon = $("<i>").attr("class", "material-icon no-button").html("✗");
-    var xButton = $("<a>").attr("class", "btn-floating halfway-fab waves-effect waves-light red left").attr("id", "x-button").append(xIcon);
+    var xIcon = $("<i>").attr("class", "material-icon").html("✗");
+    var xButton = $("<a>").attr("class", "btn-floating halfway-fab waves-effect waves-light red left").attr("id", "x-button").attr("id", "no-button").append(xIcon);
 
     // Card front title & photo
     var cardTitle = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.name).attr("class", "card-title grey-text text-darken-4");
@@ -298,6 +280,17 @@ function cardCreate(searchResponse) {
 
 
     $("#restaurant-card").append(cardFront);
+
+    $("#no-button").on("click", function () {
+        cardCreate(searchObject);
+    
+    });
+    
+    $("#accept-button").on("click", function () {
+    
+        modalContent();
+    
+    });
 
 };
 
