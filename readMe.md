@@ -5,8 +5,8 @@ When our team was tasked with solving a common problem, we realize that it alway
 
 That was where Moodies was born! Our webpage will take into account not only your location, but also your mood and the weather. So that you'll never have to suffer through patio dining when its freezing outside, or constantly be interrupted by waiters when you are already in a bad mood.
 
-![Moodies Page](assets\images\moodies-start.png)
-![Moodies Choice](assets\images\moodies-choice.png)
+![Moodies Page](assets/images/moodies-start.png)
+![Moodies Choice](assets/images/moodies-choice.png)
 
 ## Usage
 * No downloads or installations required.
@@ -17,7 +17,7 @@ That was where Moodies was born! Our webpage will take into account not only you
 * You will receive suggestions based on your mood, and you can use the weather to help you make a selection.
 
 We configured this application to be completely mobile responsive
-![Moodies Mobile](assets\images\moodies-mobile.png)
+![Moodies Mobile](assets/images/moodies-mobile.png)
 
 ## Features
 * Completely Mobile Responsive
