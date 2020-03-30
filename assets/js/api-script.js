@@ -272,8 +272,16 @@ function cardCreate(searchResponse) {
 
     // Card front info
     var cardInfo = $("<p>").text(restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
-    var reccomendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasonFeelingBlurb[0] + "!");
-    var cardContentFront = $("<div>").attr("class", "card-content").append(cardTitle, cardInfo, reccomendationReason);
+
+    // Card recommendation
+    var firstCuisineType = cuisineType[0];
+    if (firstCuisineType === ""){
+        var recommendationReason = $("<p>").text("Moodies recommends " + restaurantsArray[randomRestaurantChoice].restaurant.name + " when you are feeling " + choiceReasonFeelingBlurb[0] + "!");
+    }
+   else {
+    var recommendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasonFeelingBlurb[0] + "!");
+   }
+    var cardContentFront = $("<div>").attr("class", "card-content").append(cardTitle, cardInfo, recommendationReason);
     var websiteInfo = $("<a>").text("Learn more").attr("href", restaurantsArray[randomRestaurantChoice].restaurant.url).attr("target", "_blank");
     var learnMore = $("<div>").attr("class", "card-action").append(websiteInfo);
     var cardFront = $("<div>").attr("class", "card");
