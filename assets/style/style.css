@@ -157,6 +157,10 @@ max-height: 200px;
 max-width: 100%;
 }
 
+/* User rating */
+#user-rating{
+    padding: 3px;
+}
 
 /* Footer */
 .page-footer {
