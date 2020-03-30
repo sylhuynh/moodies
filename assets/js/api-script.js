@@ -185,15 +185,13 @@ function zomatoSearchResources(cityID, cityType, cuisineBasedOnEmotion, resultAm
         showCardandBtns();
 
 
-        $("#no-button").on("click", function () {
-
+        $(".no-button").on("click", function () {
             cardCreate(searchResponse);
             $("#accept-button").on("click", function () {
-    
-                modalContent();
-    
-            });
 
+                modalContent();
+
+            });
         });
 
         $("#accept-button").on("click", function () {
@@ -256,16 +254,16 @@ function cardCreate(searchResponse) {
     var cuisineTypeString = JSON.stringify(firstCuisine).toLowerCase();
     var cuisineType = JSON.parse(cuisineTypeString);
     var imageSource = featuredImage[cuisineType];
-    var cardImage = $("<img>").attr("src", imageSource).attr("id","featured-image");
+    var cardImage = $("<img>").attr("src", imageSource).attr("id", "featured-image");
 
     // Checkmark button
-    var checkmark = $("<i>").attr("class","material-icon").html("✓");
-    var acceptButton = $("<a>").attr("class", "btn-floating halfway-fab waves-effect waves-light green activator").attr("id","accept-button").append(checkmark);
-    
+    var checkmark = $("<i>").attr("class", "material-icon").html("✓");
+    var acceptButton = $("<a>").attr("class", "btn-floating halfway-fab waves-effect waves-light green activator").attr("id", "accept-button").append(checkmark);
+
     // // X button
-    var xIcon = $("<i>").attr("class","material-icon").attr("id","no-button").html("✗");
-    var xButton = $("<a>").attr("class", "btn-floating halfway-fab waves-effect waves-light red left").attr("id","x-button").append(xIcon);
-    
+    var xIcon = $("<i>").attr("class", "material-icon no-button").html("✗");
+    var xButton = $("<a>").attr("class", "btn-floating halfway-fab waves-effect waves-light red left").attr("id", "x-button").append(xIcon);
+
     // Card front title & photo
     var cardTitle = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.name).attr("class", "card-title grey-text text-darken-4");
     var cardImageDiv = $("<div>").attr("class", "card-image").append(xButton, acceptButton, cardImage);
@@ -273,16 +271,16 @@ function cardCreate(searchResponse) {
     // Card front info
     var cardInfo = $("<p>").text(restaurantsArray[randomRestaurantChoice].restaurant.cuisines + " " + searchResponse.restaurants[randomRestaurantChoice].restaurant.location.locality);
     var userRating = $("<p>").text("User Review Score: " + restaurantsArray[randomRestaurantChoice].restaurant.user_rating.aggregate_rating);
-    var userRatingText = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.user_rating.rating_text).attr("style","background-color: #" + restaurantsArray[randomRestaurantChoice].restaurant.user_rating.rating_color).attr("id","user-rating");
+    var userRatingText = $("<span>").text(restaurantsArray[randomRestaurantChoice].restaurant.user_rating.rating_text).attr("style", "background-color: #" + restaurantsArray[randomRestaurantChoice].restaurant.user_rating.rating_color).attr("id", "user-rating");
 
     // Card recommendation
     var firstCuisineType = cuisineType[0];
-    if (firstCuisineType === ""){
+    if (firstCuisineType === "") {
         var recommendationReason = $("<p>").text("Moodies recommends " + restaurantsArray[randomRestaurantChoice].restaurant.name + " when you are feeling " + choiceReasonFeelingBlurb[0] + "!");
     }
-   else {
-    var recommendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasonFeelingBlurb[0] + "!");
-   }
+    else {
+        var recommendationReason = $("<p>").text("Moodies recommends " + cuisineType + " when you are feeling " + choiceReasonFeelingBlurb[0] + "!");
+    }
     var cardContentFront = $("<div>").attr("class", "card-content").append(cardTitle, cardInfo, recommendationReason, userRating, userRatingText);
     var websiteInfo = $("<a>").text("Learn more").attr("href", restaurantsArray[randomRestaurantChoice].restaurant.url).attr("target", "_blank");
     var learnMore = $("<div>").attr("class", "card-action").append(websiteInfo);
