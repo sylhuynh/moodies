@@ -41,7 +41,8 @@ Thanks to the following people who have contributed to this project:
 ### [Samuel Foster](https://github.com/Samwise2980)
 ### [Sylvia Huynh](https://github.com/sylhuynh)
 
-
+## Link to the App
+### [Moodies](https://sylhuynh.github.io/moodies/)
 
 
 
